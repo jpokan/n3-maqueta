@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const srcDir = '.'
+
 export default {
 	content: [
 		`${srcDir}/components/**/*.{vue,js,ts}`,

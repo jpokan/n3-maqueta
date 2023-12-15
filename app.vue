@@ -1,5 +1,3 @@
 <template>
-	<div>
-		Hello!
-	</div>
+	<Experience />
 </template>
