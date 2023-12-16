@@ -13,11 +13,14 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@tweakpane/plugin-essentials": "^0.2.0",
-    "@types/three": "^0.159.0",
+    "@types/three": "^0.152.2",
+    "bim-fragment": "^1.2.1",
     "nuxt": "^3.8.2",
-    "three": "^0.159.0",
+    "openbim-components": "^1.2.0",
+    "three": "^0.152.2",
     "tweakpane": "^4.0.1",
     "vue": "^3.3.10",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "web-ifc": "^0.0.46"
   }
 }
