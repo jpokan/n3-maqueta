@@ -30,7 +30,7 @@ export default class Experience {
 
 		const pane_status = pane.addFolder({
 			title: "status",
-			expanded: false,
+			expanded: true,
 		});
 
 		const fpsgraph = pane_status.addBlade({
@@ -86,6 +86,9 @@ export default class Experience {
 		const scene = new THREE.Scene();
 
 		// Create light source
+		const hemi = new THREE.HemisphereLight(0xffffff, 0xffffff, 3);
+		hemi.position.set(0, 25, 0);
+		scene.add(hemi);
 
 		// Create axesHelper
 		const axesHelper = new THREE.AxesHelper(100);
@@ -103,10 +106,11 @@ export default class Experience {
 				function (gltf) {
 					gltf.scene.traverse((child) => {
 						if (child.isMesh) {
-							child.material = material;
+							// child.material = material;
 						}
 					});
 					scene.add(gltf.scene);
+					console.log(scene);
 				},
 				// called while loading is progressing
 				function (xhr) {
@@ -191,6 +195,10 @@ export default class Experience {
 		const renderPass = new RenderPass(scene, camera);
 		composer.addPass(renderPass);
 
+		const hbaoPass2 = new HBAOPass(scene, camera, sizes.width, sizes.height);
+		hbaoPass2.output = HBAOPass.OUTPUT.Default;
+		composer.addPass(hbaoPass2);
+
 		const hbaoPass = new HBAOPass(scene, camera, sizes.width, sizes.height);
 		hbaoPass.output = HBAOPass.OUTPUT.Default;
 		composer.addPass(hbaoPass);
@@ -199,12 +207,20 @@ export default class Experience {
 		composer.addPass(outputPass);
 
 		// Initializes HBAO params
-		const hbaoParameters = {
-			radius: 3,
+		const hbaoParameters2 = {
+			radius: 0.2,
 			distanceExponent: 1,
 			bias: 0.01,
 			samples: 16,
 		};
+
+		const hbaoParameters = {
+			radius: 10,
+			distanceExponent: 1,
+			bias: 0.01,
+			samples: 16,
+		};
+
 		const pdParameters = {
 			lumaPhi: 10,
 			depthPhi: 2,
@@ -213,8 +229,10 @@ export default class Experience {
 			rings: 4,
 			samples: 8,
 		};
+
 		hbaoPass.updateHbaoMaterial(hbaoParameters);
 		hbaoPass.updatePdMaterial(pdParameters);
+		hbaoPass2.updateHbaoMaterial(hbaoParameters2);
 
 		// Clock
 		const clock = new THREE.Clock();
