@@ -3,9 +3,11 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { HBAOPass } from "three/addons/postprocessing/HBAOPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 
 export default class Experience {
 	constructor() {
@@ -76,7 +78,7 @@ export default class Experience {
 		material.color = new THREE.Color("#e5e5e5");
 		material.side = THREE.DoubleSide;
 
-		const matcapTexture = new THREE.TextureLoader().load("clay3.jpeg");
+		const matcapTexture = new THREE.TextureLoader().load("Plates.jpg");
 		const matcapMaterial = new THREE.MeshMatcapMaterial();
 		matcapMaterial.matcap = matcapTexture;
 
@@ -85,76 +87,37 @@ export default class Experience {
 
 		// Create light source
 
-		const light = new THREE.DirectionalLight(0xffffff, 1.0);
-		//　The light is directed from the light's position to the origin of the world coordinates.
-		light.position.set(0, 100, 0);
-
-		scene.add(light);
-
-		const frustumSize = 80;
-
-		light.shadow.camera = new THREE.OrthographicCamera(
-			-frustumSize / 2,
-			frustumSize / 2,
-			frustumSize / 2,
-			-frustumSize / 2,
-			1,
-			80
-		);
-
-		// Same position as LIGHT position.
-		light.shadow.camera.position.copy(light.position);
-		light.shadow.camera.lookAt(scene.position);
-		scene.add(light.shadow.camera);
-
-		// Depth map
-
-		light.shadow.mapSize.x = 2048;
-		light.shadow.mapSize.y = 2048;
-
-		const pars = {
-			minFilter: THREE.NearestFilter,
-			magFilter: THREE.NearestFilter,
-			format: THREE.RGBAFormat,
-		};
-
-		light.shadow.map = new THREE.WebGLRenderTarget(
-			light.shadow.mapSize.x,
-			light.shadow.mapSize.y,
-			pars
-		);
-
 		// Create axesHelper
-		const axesHelper = new THREE.AxesHelper(5);
+		const axesHelper = new THREE.AxesHelper(100);
 		scene.add(axesHelper);
-
-		// Create Floor
-		const plane = new THREE.PlaneGeometry(100, 100, 10, 10);
-		const mesh = new THREE.Mesh(plane, material);
-		mesh.rotateX(-Math.PI / 2);
-		scene.add(mesh);
 
 		// Import 3d model
 		const loader = new GLTFLoader();
-		loader.load(
-			"mhub.glb",
-			function (gltf) {
-				gltf.scene.traverse((child) => {
-					if (child.isMesh) {
-						child.material = material;
-					}
-				});
-				scene.add(gltf.scene);
-			},
-			// called while loading is progressing
-			function (xhr) {
-				console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-			},
-			// called when loading has errors
-			function (error) {
-				console.log("An error happened");
-			}
-		);
+		const files = ["VS_0.1.glb", "VS_1.4.glb", "VS_2.5.glb"];
+
+		for (let i = 0; i < files.length; i++) {
+			const name = files[i];
+
+			loader.load(
+				name,
+				function (gltf) {
+					gltf.scene.traverse((child) => {
+						if (child.isMesh) {
+							child.material = material;
+						}
+					});
+					scene.add(gltf.scene);
+				},
+				// called while loading is progressing
+				function (xhr) {
+					console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+				},
+				// called when loading has errors
+				function (error) {
+					console.log("An error happened");
+				}
+			);
+		}
 
 		/**
 		 * Resizer
@@ -176,6 +139,7 @@ export default class Experience {
 			// Update renderer
 			renderer.setSize(sizes.width, sizes.height);
 			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+			composer.setSize(sizes.width, sizes.height);
 		});
 
 		/**
@@ -188,7 +152,7 @@ export default class Experience {
 			0.1,
 			1000
 		);
-		camera.position.set(50, 50, 50);
+		camera.position.set(0, 25, 0);
 
 		// Controls
 		const controls = new OrbitControls(camera, canvas);
@@ -206,6 +170,51 @@ export default class Experience {
 		renderer.setSize(sizes.width, sizes.height);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.outputColorSpace = THREE.SRGBColorSpace;
+		renderer.shadowMap.enabled = true;
+		renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+		// POSTPROCESSING
+		const pixelRatio = renderer.getPixelRatio();
+		const maxSamples = renderer.capabilities.maxSamples;
+
+		const renderTarget = new THREE.WebGLRenderTarget(
+			sizes.width * pixelRatio,
+			sizes.height * pixelRatio,
+			{
+				type: THREE.HalfFloatType,
+				samples: maxSamples,
+			}
+		);
+		renderTarget.texture.name = "EffectComposer.rt1";
+		const composer = new EffectComposer(renderer, renderTarget);
+
+		const renderPass = new RenderPass(scene, camera);
+		composer.addPass(renderPass);
+
+		const hbaoPass = new HBAOPass(scene, camera, sizes.width, sizes.height);
+		hbaoPass.output = HBAOPass.OUTPUT.Default;
+		composer.addPass(hbaoPass);
+
+		const outputPass = new OutputPass();
+		composer.addPass(outputPass);
+
+		// Initializes HBAO params
+		const hbaoParameters = {
+			radius: 3,
+			distanceExponent: 1,
+			bias: 0.01,
+			samples: 16,
+		};
+		const pdParameters = {
+			lumaPhi: 10,
+			depthPhi: 2,
+			normalPhi: 3,
+			radius: 10,
+			rings: 4,
+			samples: 8,
+		};
+		hbaoPass.updateHbaoMaterial(hbaoParameters);
+		hbaoPass.updatePdMaterial(pdParameters);
 
 		// Clock
 		const clock = new THREE.Clock();
@@ -227,7 +236,8 @@ export default class Experience {
 			controls.update();
 
 			// Render
-			renderer.render(scene, camera);
+			// renderer.render(scene, camera);
+			composer.render();
 
 			fpsgraph.end();
 			// Call tick again on the next frame
