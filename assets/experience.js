@@ -26,7 +26,7 @@ export default class Experience {
 		const parameters = {
 			background: "#89b5c8",
 			animate: false,
-			hbao: false,
+			hbao: true,
 		};
 
 		const pane_status = pane.addFolder({
@@ -68,7 +68,7 @@ export default class Experience {
 			label: "u_time",
 		});
 
-		pane_status.addBinding(parameters, 'hbao')
+		pane_status.addBinding(parameters, "hbao");
 
 		// Create canvas
 		const canvas = document.createElement("canvas");
@@ -76,14 +76,30 @@ export default class Experience {
 		document.body.appendChild(canvas);
 		window.experience = true;
 
+		const sizes = {
+			width: window.innerWidth,
+			height: window.innerHeight,
+		};
+
 		// Create material
 		const material = new THREE.MeshBasicMaterial();
-		material.color = new THREE.Color("#e5e5e5");
-		material.side = THREE.DoubleSide;
+		material.color = new THREE.Color("#ffffff");
+		material.polygonOffset = true;
+		material.polygonOffsetFactor = 1;
+		material.polygonOffsetUnits = 1;
 
 		const matcapTexture = new THREE.TextureLoader().load("Plates.jpg");
 		const matcapMaterial = new THREE.MeshMatcapMaterial();
 		matcapMaterial.matcap = matcapTexture;
+
+		const lineBasicMaterial = new THREE.LineBasicMaterial({
+			color: new THREE.Color(0x5c5c5c),
+			depthTest: false,
+		});
+
+		// lineBasicMaterial.polygonOffset = true;
+		// lineBasicMaterial.polygonOffsetFactor = 1;
+		// lineBasicMaterial.polygonOffsetUnits = 1;
 
 		// Create scene
 		const scene = new THREE.Scene();
@@ -99,20 +115,37 @@ export default class Experience {
 
 		// Import 3d model
 		const loader = new GLTFLoader();
-		const files = ["VS_0.1.glb", "VS_1.4.glb", "VS_2.5.glb"];
+		const files = [
+			"VS_0.1.glb",
+			"VS_1.4.glb",
+			"VS_2.6.glb",
+		];
 
 		for (let i = 0; i < files.length; i++) {
 			const name = files[i];
+
+			const group = new THREE.Group();
 
 			loader.load(
 				name,
 				function (gltf) {
 					gltf.scene.traverse((child) => {
-						if (child.isMesh) {
-							// child.material = matcapMaterial;
+						if (child.geometry) {
+							// child.material = material;
+
+							const edgesGeometry = new THREE.EdgesGeometry(child.geometry, 1);
+							edgesGeometry.rotateX(Math.PI / 2);
+							const edgesInteriorMesh = new THREE.LineSegments(
+								edgesGeometry,
+								lineBasicMaterial
+							);
+							edgesInteriorMesh.renderOrder = -1;
+							group.add(edgesInteriorMesh)
 						}
 					});
+					gltf.scene.add(group);
 					scene.add(gltf.scene);
+					console.log(scene);
 				},
 				// called while loading is progressing
 				function (xhr) {
@@ -120,6 +153,7 @@ export default class Experience {
 				},
 				// called when loading has errors
 				function (error) {
+					console.log(error);
 					console.log("An error happened");
 				}
 			);
@@ -128,10 +162,6 @@ export default class Experience {
 		/**
 		 * Resizer
 		 */
-		const sizes = {
-			width: window.innerWidth,
-			height: window.innerHeight,
-		};
 
 		window.addEventListener("resize", () => {
 			// Update sizes
