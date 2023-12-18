@@ -26,6 +26,7 @@ export default class Experience {
 		const parameters = {
 			background: "#89b5c8",
 			animate: false,
+			hbao: false,
 		};
 
 		const pane_status = pane.addFolder({
@@ -67,6 +68,8 @@ export default class Experience {
 			label: "u_time",
 		});
 
+		pane_status.addBinding(parameters, 'hbao')
+
 		// Create canvas
 		const canvas = document.createElement("canvas");
 		canvas.setAttribute("id", "webgl");
@@ -106,11 +109,10 @@ export default class Experience {
 				function (gltf) {
 					gltf.scene.traverse((child) => {
 						if (child.isMesh) {
-							// child.material = material;
+							// child.material = matcapMaterial;
 						}
 					});
 					scene.add(gltf.scene);
-					console.log(scene);
 				},
 				// called while loading is progressing
 				function (xhr) {
@@ -254,8 +256,11 @@ export default class Experience {
 			controls.update();
 
 			// Render
-			// renderer.render(scene, camera);
-			composer.render();
+			if (parameters.hbao) {
+				composer.render();
+			} else {
+				renderer.render(scene, camera);
+			}
 
 			fpsgraph.end();
 			// Call tick again on the next frame
