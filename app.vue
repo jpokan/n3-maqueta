@@ -1,3 +1,3 @@
 <template>
-	<Experience />
+	<div></div>
 </template>
