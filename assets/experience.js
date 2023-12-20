@@ -69,6 +69,9 @@ export default class Experience {
 		});
 
 		pane_status.addBinding(parameters, "hbao");
+		const pane_scene = pane.addFolder({
+			title: 'Scene'
+		})
 
 		// Create canvas
 		const canvas = document.createElement("canvas");
@@ -97,10 +100,6 @@ export default class Experience {
 			depthTest: false,
 		});
 
-		// lineBasicMaterial.polygonOffset = true;
-		// lineBasicMaterial.polygonOffsetFactor = 1;
-		// lineBasicMaterial.polygonOffsetUnits = 1;
-
 		// Create scene
 		const scene = new THREE.Scene();
 
@@ -128,10 +127,10 @@ export default class Experience {
 
 			loader.load(
 				name,
-				function (gltf) {
+				function(gltf) {
 					gltf.scene.traverse((child) => {
 						if (child.geometry) {
-							// child.material = material;
+							// child.material = matcapMaterial;
 
 							const edgesGeometry = new THREE.EdgesGeometry(child.geometry, 1);
 							edgesGeometry.rotateX(Math.PI / 2);
@@ -148,11 +147,11 @@ export default class Experience {
 					console.log(scene);
 				},
 				// called while loading is progressing
-				function (xhr) {
+				function(xhr) {
 					console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
 				},
 				// called when loading has errors
-				function (error) {
+				function(error) {
 					console.log(error);
 					console.log("An error happened");
 				}
@@ -206,8 +205,6 @@ export default class Experience {
 		renderer.setSize(sizes.width, sizes.height);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		renderer.outputColorSpace = THREE.SRGBColorSpace;
-		renderer.shadowMap.enabled = true;
-		renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 		// POSTPROCESSING
 		const pixelRatio = renderer.getPixelRatio();
