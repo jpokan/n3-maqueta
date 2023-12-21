@@ -1,4 +1,4 @@
-import { canvas } from 'assets/webgl/experience.js'
+import { canvas } from './experience.js'
 import { parameters, uniforms } from './parameters';
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";

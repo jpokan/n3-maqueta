@@ -9,7 +9,7 @@ import { initResizer } from "./resizer.js"
 import { initRenderer } from "./renderer.js";
 import { initCamera } from "./camera.js";
 import { initControls } from "./controls.js";
-import "./loader.js"
+import { scene } from "./scene.js";
 
 // Create canvas
 export const canvas = document.createElement("canvas");
@@ -32,18 +32,16 @@ export const sizes = {
 	height: window.innerHeight,
 };
 
-// Create scene
-export const scene = new THREE.Scene();
 export const renderer = initRenderer(sizes, canvas)
 export const camera = initCamera(sizes)
 
 // Postprocessing
 export const composer = initPostprocessing(sizes, camera, scene, renderer);
-initResizer(sizes, camera, renderer, composer)
+export const controls = initControls(camera, canvas)
 
+initResizer(sizes, camera, renderer, composer)
 initHelpers()
 initLights()
-export const controls = initControls(camera, canvas)
 
 // Clock
 const clock = new THREE.Clock();

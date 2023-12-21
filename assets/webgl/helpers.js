@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { scene } from './experience.js'
+import { scene } from './scene.js'
 
 export function initHelpers() {
 	// Create axesHelper
