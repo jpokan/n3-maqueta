@@ -11,7 +11,7 @@ import { initCamera } from "./camera.js";
 import { initControls } from "./controls.js";
 import { scene } from "./scene.js";
 
-// Create canvas
+// Attach canvas to document
 export const canvas = document.createElement("canvas");
 canvas.setAttribute("id", "webgl");
 document.body.appendChild(canvas);
@@ -34,8 +34,6 @@ export const sizes = {
 
 export const renderer = initRenderer(sizes, canvas)
 export const camera = initCamera(sizes)
-
-// Postprocessing
 export const composer = initPostprocessing(sizes, camera, scene, renderer);
 export const controls = initControls(camera, canvas)
 
@@ -43,7 +41,6 @@ initResizer(sizes, camera, renderer, composer)
 initHelpers()
 initLights()
 
-// Clock
 const clock = new THREE.Clock();
 
 /**
