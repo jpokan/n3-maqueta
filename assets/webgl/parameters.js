@@ -1,3 +1,7 @@
+export const sizes = {
+	width: window.innerWidth,
+	height: window.innerHeight,
+};
 
 export const parameters = {
 	background: "#F5EFDF",
@@ -8,6 +12,18 @@ export const parameters = {
 export const uniforms = {
 	u_time: { value: 0.0 },
 	u_radius: { value: 1.0 },
+};
+
+export const camParameters = {
+	near: 0.1,
+	far: 1000,
+	fov: 75,
+	target: { x: 0, y: 0, z: 0 },
+	position: {
+		x: 25,
+		y: 25,
+		z: 25,
+	},
 };
 
 // Initializes HBAO params
@@ -33,4 +49,3 @@ export const pdParameters = {
 	rings: 4,
 	samples: 8,
 };
-

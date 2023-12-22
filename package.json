@@ -11,7 +11,6 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@nuxtjs/tailwindcss": "^6.10.1",
     "@tweakpane/plugin-essentials": "^0.2.0",
     "@types/three": "^0.159.0",
     "nuxt": "^3.8.2",
@@ -19,5 +18,8 @@
     "tweakpane": "^4.0.1",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^2.11.1"
   }
 }

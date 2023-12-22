@@ -1,16 +1,15 @@
 import * as THREE from "three"
+import { camParameters } from "./parameters";
 
 export function initCamera(sizes) {
-	/**
-	 * Camera
-	 */
 	// Perspective Camera
 	const camera = new THREE.PerspectiveCamera(
-		75,
+		camParameters.fov,
 		sizes.width / sizes.height,
-		0.1,
-		1000
+		camParameters.near,
+		camParameters.far
 	);
-	camera.position.set(25, 25, 25);
+	camera.position.set(camParameters.position.x, camParameters.position.y, camParameters.position.z);
+
 	return camera
 }

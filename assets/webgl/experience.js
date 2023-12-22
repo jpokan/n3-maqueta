@@ -1,11 +1,11 @@
 import "assets/css/webgl.css";
 import * as THREE from "three";
-import { pane, fpsgraph } from './tpgui.js'
-import { parameters, uniforms } from "./parameters.js";
+import { pane, fpsgraph } from "./tpgui.js";
+import { parameters, uniforms, sizes } from "./parameters.js";
 import { initHelpers } from "./helpers.js";
 import { initLights } from "./lights.js";
-import { initPostprocessing } from "./postprocessing.js"
-import { initResizer } from "./resizer.js"
+import { initPostprocessing } from "./postprocessing.js";
+import { initResizer } from "./resizer.js";
 import { initRenderer } from "./renderer.js";
 import { initCamera } from "./camera.js";
 import { initControls } from "./controls.js";
@@ -20,26 +20,20 @@ export default class Experience {
 	constructor() {
 		if (window.__3DEXP__) {
 			console.log("already built");
-			return window.__3DEXP__;
 		} else {
-			window.__3DEXP__ = true
+			window.__3DEXP__ = true;
 		}
 	}
 }
 
-export const sizes = {
-	width: window.innerWidth,
-	height: window.innerHeight,
-};
-
-export const renderer = initRenderer(sizes, canvas)
-export const camera = initCamera(sizes)
+export const camera = initCamera(sizes);
+export const renderer = initRenderer(sizes, canvas);
 export const composer = initPostprocessing(sizes, camera, scene, renderer);
-export const controls = initControls(camera, canvas)
+export const controls = initControls(camera, canvas);
 
-initResizer(sizes, camera, renderer, composer)
-initHelpers()
-initLights()
+initResizer(sizes, camera, renderer, composer);
+initHelpers();
+initLights();
 
 const clock = new THREE.Clock();
 

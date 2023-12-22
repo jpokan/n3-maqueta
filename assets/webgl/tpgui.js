@@ -1,9 +1,9 @@
-import { canvas } from './experience.js'
-import { parameters, uniforms } from './parameters';
+import { canvas, camera, controls } from "./experience.js";
+import { parameters, uniforms, camParameters } from "./parameters";
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
 
-export const pane = new Pane()
+export const pane = new Pane();
 pane.registerPlugin(EssentialsPlugin);
 
 export const pane_status = pane.addFolder({
@@ -42,6 +42,27 @@ pane_status.addBinding(uniforms.u_time, "value", {
 
 pane_status.addBinding(parameters, "hbao");
 
-export const pane_scene = pane.addFolder({
-	title: 'Scene'
+export const pane_camera = pane.addFolder({
+	title: "Camera",
+});
+
+pane_camera.addBinding(camParameters, "far").on("change", (event) => {
+	camera.far = event.value;
+	camera.updateProjectionMatrix()
+});
+pane_camera.addBinding(camParameters, "fov").on("change", (event) => {
+	camera.fov = event.value;
+	camera.updateProjectionMatrix()
+});
+pane_camera.addBinding(camParameters, "near").on("change", (event) => {
+	camera.near = event.value;
+	camera.updateProjectionMatrix()
+});
+pane_camera.addBinding(camParameters, "position").on("change", (event) => {
+	camera.position.set(event.value.x, event.value.y, event.value.z);
+	camera.updateProjectionMatrix()
+});
+
+pane_camera.addBinding(camParameters, "target").on("change", (event)=>{
+	controls.target.set(event.value.x, event.value.y, event.value.z)
 })
