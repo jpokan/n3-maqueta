@@ -3,7 +3,7 @@
 		<UButton @click="isOpen = true" color="white" size="xs" variant="solid"
 			trailing-icon="i-heroicons-information-circle-16-solid" />
 
-		<UModal v-model="isOpen" fullscreen>
+		<UModal v-model="isOpen">
 			<UCard :ui="{
 				base: 'h-full flex flex-col font-satoshi',
 				rounded: '',
@@ -22,8 +22,19 @@
 					</div>
 				</template>
 
-				<div class="h-full">
-				My content goes here! sdad
+				<div class="h-full flex gap-5">
+					<div class="">
+						<p class="mb-5">
+							This app lets you create presentations slides with 3D assets.
+						</p>
+						<p class="mb-5">
+							Aimed at architects, interior designers, 3D modelers, product designers, students,
+							teacher or anyone who wants create interactive presentations or review 3D objects.
+						</p>
+						<p class="text-center">
+							Created by Jpokan
+						</p>
+					</div>
 				</div>
 			</UCard>
 		</UModal>

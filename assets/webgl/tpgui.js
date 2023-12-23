@@ -1,5 +1,5 @@
 import { canvas } from "./canvas.js";
-import { camera, controls } from "./experience.js";
+import { camera } from "./camera";
 import { parameters, uniforms, camParameters } from "./parameters";
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
@@ -41,7 +41,7 @@ pane_status.addBinding(uniforms.u_time, "value", {
 	label: "u_time",
 });
 
-pane_status.addBinding(parameters, "hbao");
+pane_status.addBinding(parameters, "composer");
 
 export const pane_camera = pane.addFolder({
 	title: "Camera",
@@ -64,6 +64,6 @@ pane_camera.addBinding(camParameters, "position").on("change", (event) => {
 	camera.updateProjectionMatrix()
 });
 
-pane_camera.addBinding(camParameters, "target").on("change", (event)=>{
+pane_camera.addBinding(camParameters, "target").on("change", (event) => {
 	controls.target.set(event.value.x, event.value.y, event.value.z)
 })

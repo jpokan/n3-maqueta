@@ -7,6 +7,7 @@ export const parameters = {
 	background: "#F5EFDF",
 	animate: false,
 	hbao: true,
+	composer: true,
 };
 
 export const uniforms = {

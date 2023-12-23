@@ -1,10 +1,14 @@
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { camera } from "./camera";
+import { canvas } from "./canvas";
 // import { camParameters } from "./parameters";
 // import { pane_camera } from "./tpgui";
 
-export function initControls(camera, canvas) {
+
+export const controls = new OrbitControls(camera, canvas);
+
+export function initControls() {
 	// Controls
-	const controls = new OrbitControls(camera, canvas);
 	controls.enableDamping = true;
 	controls.update();
 
@@ -18,6 +22,5 @@ export function initControls(camera, canvas) {
 	// 	camParameters.target.z = controls.target.z
 	// 	pane_camera.refresh()
 	// })
-	return controls
 }
 

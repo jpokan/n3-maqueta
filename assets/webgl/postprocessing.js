@@ -4,23 +4,28 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { HBAOPass } from "three/addons/postprocessing/HBAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { sizes } from './parameters';
+import { scene } from './scene';
+import { camera } from './camera';
+import { renderer } from './renderer';
 
-export function initPostprocessing(sizes, camera, scene, renderer) {
-	const pixelRatio = renderer.getPixelRatio();
-	const maxSamples = renderer.capabilities.maxSamples;
+export const composer = new EffectComposer(renderer)
 
-	const renderTarget = new THREE.WebGLRenderTarget(
-		sizes.width * pixelRatio,
-		sizes.height * pixelRatio,
-		{
-			type: THREE.HalfFloatType,
-			samples: maxSamples,
-		}
-	);
+const pixelRatio = renderer.getPixelRatio();
+const maxSamples = renderer.capabilities.maxSamples;
 
-	renderTarget.texture.name = "EffectComposer.rt1";
-	const composer = new EffectComposer(renderer, renderTarget);
+export const renderTarget = new THREE.WebGLRenderTarget(
+	sizes.width * pixelRatio,
+	sizes.height * pixelRatio,
+	{
+		type: THREE.HalfFloatType,
+		samples: maxSamples,
+	}
+);
 
+renderTarget.texture.name = "EffectComposer.rt1";
+
+export function initPostprocessing() {
 	const renderPass = new RenderPass(scene, camera);
 	composer.addPass(renderPass);
 
@@ -38,6 +43,5 @@ export function initPostprocessing(sizes, camera, scene, renderer) {
 	hbaoPass.updateHbaoMaterial(hbaoParameters);
 	hbaoPass.updatePdMaterial(pdParameters);
 	hbaoPass2.updateHbaoMaterial(hbaoParameters2);
-	
-	return composer
 }
+

@@ -5,7 +5,8 @@
 <script setup>
 import { loader } from "assets/webgl/loader.js";
 import { scene } from "assets/webgl/scene.js";
-import { importFailMsg } from "assets/toast/messages.js"
+import { importFailMsg } from "assets/toast/messages.js";
+import { material } from "~/assets/webgl/materials.js";
 
 const toast = useToast()
 
@@ -17,13 +18,18 @@ function load(e) {
 		try {
 			const content = e.target.result
 			loader.parse(content, '', (gltf) => {
+				gltf.scene.traverse((child) => {
+					if (child.geometry) {
+						//		child.material = material;
+					}
+
+				})
 				scene.add(gltf.scene)
 			})
 		}
 		catch {
 			toast.add(importFailMsg)
 		}
-
 	}
 
 	reader.readAsArrayBuffer(file)

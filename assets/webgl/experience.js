@@ -1,16 +1,16 @@
 import "assets/css/webgl.css";
 import * as THREE from "three";
-// import { pane, fpsgraph } from "./tpgui.js";
-import { parameters, uniforms, sizes } from "./parameters.js";
+import { pane, fpsgraph } from "./tpgui.js";
+import { scene } from "./scene.js";
+import { parameters, uniforms } from "./parameters.js";
+import { initCanvas } from "./canvas.js";
 import { initHelpers } from "./helpers.js";
 import { initLights } from "./lights.js";
-import { initPostprocessing } from "./postprocessing.js";
+import { renderer } from "./renderer.js";
+import { camera, initCamera } from "./camera.js";
+import { initControls, controls } from "./controls.js";
+import { composer, initPostprocessing } from "./postprocessing.js";
 import { initResizer } from "./resizer.js";
-import { initRenderer } from "./renderer.js";
-import { initCamera } from "./camera.js";
-import { initControls } from "./controls.js";
-import { initCanvas, canvas } from "./canvas.js";
-import { scene } from "./scene.js";
 
 export default class Experience {
 	constructor() {
@@ -18,19 +18,16 @@ export default class Experience {
 			console.log("already built");
 		} else {
 			initCanvas()
+			initCamera();
+			initControls();
+			initPostprocessing()
+			initResizer();
+			initHelpers();
+			initLights();
 			window.__3DEXP__ = true;
 		}
 	}
 }
-
-export const camera = initCamera(sizes);
-export const renderer = initRenderer(sizes, canvas);
-export const composer = initPostprocessing(sizes, camera, scene, renderer);
-export const controls = initControls(camera, canvas);
-
-initResizer(sizes, camera, renderer, composer);
-initHelpers();
-initLights();
 
 const clock = new THREE.Clock();
 
@@ -38,26 +35,26 @@ const clock = new THREE.Clock();
  * Animate
  */
 const tick = () => {
-	// fpsgraph.begin();
+	fpsgraph.begin();
 
 	const delta = clock.getDelta();
 
 	if (parameters.animate) {
 		uniforms.u_time.value += delta;
-		// pane.refresh();
+		pane.refresh();
 	}
 
 	// Update controls
 	controls.update();
 
 	// Render
-	if (parameters.hbao) {
+	if (parameters.composer) {
 		composer.render();
 	} else {
 		renderer.render(scene, camera);
 	}
 
-	// fpsgraph.end();
+	fpsgraph.end();
 	// Call tick again on the next frame
 	requestAnimationFrame(tick);
 };

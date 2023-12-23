@@ -1,7 +1,11 @@
+import { sizes } from "./parameters";
+import { camera } from "./camera";
+import { renderer } from "./renderer";
+import { composer } from "./postprocessing";
 /**
  * Resizer
  */
-export function initResizer(sizes, camera, renderer, composer) {
+export function initResizer() {
 	window.addEventListener("resize", () => {
 		// Update sizes
 		sizes.width = window.innerWidth;
@@ -16,6 +20,6 @@ export function initResizer(sizes, camera, renderer, composer) {
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 		// update composer
-		if (composer) composer.setSize(sizes.width, sizes.height);
+		composer.setSize(sizes.width, sizes.height);
 	});
 }
