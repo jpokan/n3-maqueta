@@ -1,4 +1,5 @@
-import { canvas, camera, controls } from "./experience.js";
+import { canvas } from "./canvas.js";
+import { camera, controls } from "./experience.js";
 import { parameters, uniforms, camParameters } from "./parameters";
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";

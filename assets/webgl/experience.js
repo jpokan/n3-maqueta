@@ -1,6 +1,6 @@
 import "assets/css/webgl.css";
 import * as THREE from "three";
-import { pane, fpsgraph } from "./tpgui.js";
+// import { pane, fpsgraph } from "./tpgui.js";
 import { parameters, uniforms, sizes } from "./parameters.js";
 import { initHelpers } from "./helpers.js";
 import { initLights } from "./lights.js";
@@ -9,18 +9,15 @@ import { initResizer } from "./resizer.js";
 import { initRenderer } from "./renderer.js";
 import { initCamera } from "./camera.js";
 import { initControls } from "./controls.js";
+import { initCanvas, canvas } from "./canvas.js";
 import { scene } from "./scene.js";
-
-// Attach canvas to document
-export const canvas = document.createElement("canvas");
-canvas.setAttribute("id", "webgl");
-document.body.appendChild(canvas);
 
 export default class Experience {
 	constructor() {
 		if (window.__3DEXP__) {
 			console.log("already built");
 		} else {
+			initCanvas()
 			window.__3DEXP__ = true;
 		}
 	}
@@ -41,13 +38,13 @@ const clock = new THREE.Clock();
  * Animate
  */
 const tick = () => {
-	fpsgraph.begin();
+	// fpsgraph.begin();
 
 	const delta = clock.getDelta();
 
 	if (parameters.animate) {
 		uniforms.u_time.value += delta;
-		pane.refresh();
+		// pane.refresh();
 	}
 
 	// Update controls
@@ -60,7 +57,7 @@ const tick = () => {
 		renderer.render(scene, camera);
 	}
 
-	fpsgraph.end();
+	// fpsgraph.end();
 	// Call tick again on the next frame
 	requestAnimationFrame(tick);
 };
