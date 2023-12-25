@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<UButton @click="isOpen = true" color="white" size="xs" variant="solid"
+		<UButton @click="isOpen = true" color="white" variant="solid"
 			trailing-icon="i-heroicons-information-circle-16-solid" />
 
 		<UModal v-model="isOpen">

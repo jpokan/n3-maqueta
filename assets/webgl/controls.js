@@ -4,14 +4,13 @@ import { canvas } from "./canvas";
 // import { camParameters } from "./parameters";
 // import { pane_camera } from "./tpgui";
 
-
+// Controls
 export const controls = new OrbitControls(camera, canvas);
 
-export function initControls() {
-	// Controls
-	controls.enableDamping = true;
-	controls.update();
+controls.enableDamping = true;
+controls.update();
 
+export function initControls() {
 	// controls.addEventListener("change", () => {
 	// 	camParameters.position.x = camera.position.x
 	// 	camParameters.position.y = camera.position.y
@@ -23,4 +22,3 @@ export function initControls() {
 	// 	pane_camera.refresh()
 	// })
 }
-

@@ -1,6 +1,6 @@
 <template>
 	<UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-		<UButton color="white" size="xs" variant="solid" trailing-icon="i-heroicons-bars-3-16-solid" />
+		<UButton color="white" variant="solid" trailing-icon="i-heroicons-bars-3-16-solid" />
 		<NavFileInput id="gltfInput" />
 	</UDropdown>
 </template>

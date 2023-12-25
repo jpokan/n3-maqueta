@@ -1,10 +1,11 @@
 import { canvas } from "./canvas.js";
 import { camera } from "./camera";
 import { parameters, uniforms, camParameters } from "./parameters";
+import { controls } from "./controls.js";
 import { Pane } from "tweakpane";
 import * as EssentialsPlugin from "@tweakpane/plugin-essentials";
 
-export const pane = new Pane();
+export const pane = new Pane()
 pane.registerPlugin(EssentialsPlugin);
 
 export const pane_status = pane.addFolder({
@@ -40,8 +41,6 @@ pane_status.addBinding(uniforms.u_time, "value", {
 	disabled: true,
 	label: "u_time",
 });
-
-pane_status.addBinding(parameters, "composer");
 
 export const pane_camera = pane.addFolder({
 	title: "Camera",
