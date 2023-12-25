@@ -1,14 +1,23 @@
 export const sizes = {
-	width: window.innerWidth,
-	height: window.innerHeight,
+	width: 0,
+	height: 0,
 };
 
 export const parameters = {
 	background: "#F5EFDF",
 	animate: false,
-	hbao: true,
-	composer: true,
 };
+
+export const view = {
+	fps: false,
+	axes: true,
+}
+
+export const composerParameters = {
+	composer: false,
+	gtao2: false,
+	gtao: false,
+}
 
 export const uniforms = {
 	u_time: { value: 0.0 },
@@ -27,15 +36,15 @@ export const camParameters = {
 	},
 };
 
-// Initializes HBAO params
-export const hbaoParameters2 = {
+// Initializes gtao params
+export const gtaoParameters2 = {
 	radius: 0.2,
 	distanceExponent: 1,
 	bias: 0.01,
 	samples: 16,
 };
 
-export const hbaoParameters = {
+export const gtaoParameters = {
 	radius: 10,
 	distanceExponent: 1,
 	bias: 0.01,
