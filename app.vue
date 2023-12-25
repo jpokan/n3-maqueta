@@ -1,5 +1,5 @@
 <template>
-	<div class="font-satoshi font-medium">
+	<div class="font-satoshi">
 		<NavTopBar />
 		<UNotifications />
 	</div>
