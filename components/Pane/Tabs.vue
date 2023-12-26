@@ -2,6 +2,7 @@
 	<UTabs :items="items" orientation="vertical" :ui="{
 		wrapper: 'flex items-start gap-1 space-y-0',
 		list: {
+			base: 'sticky top-0',
 			width: 'w-7',
 			height: 'h-7',
 			padding: 'p-0',
