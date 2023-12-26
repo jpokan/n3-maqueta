@@ -65,4 +65,5 @@ pane_camera.addBinding(camParameters, "position").on("change", (event) => {
 
 pane_camera.addBinding(camParameters, "target").on("change", (event) => {
 	controls.target.set(event.value.x, event.value.y, event.value.z)
+	camera.updateProjectionMatrix()
 })

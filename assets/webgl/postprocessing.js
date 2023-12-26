@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import { pdParameters, gtaoParameters, gtaoParameters2, sizes, composerParameters } from "./parameters";
+import { pdParameters, hbaoParameters, hbaoParameters2, sizes, composerParameters } from "./parameters";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { HBAOPass } from "three/addons/postprocessing/HBAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { scene } from "./scene";
 import { camera } from "./camera";
@@ -29,21 +29,21 @@ export function initPostprocessing() {
 	const renderPass = new RenderPass(scene, camera);
 	composer.addPass(renderPass);
 
-	const gtaoPass = new GTAOPass(scene, camera, sizes.width, sizes.height);
-	gtaoPass.output = GTAOPass.OUTPUT.Default;
-	gtaoPass.enabled = composerParameters.gtao;
-	composer.addPass(gtaoPass);
+	const hbaoPass = new HBAOPass(scene, camera, sizes.width, sizes.height);
+	hbaoPass.output = HBAOPass.OUTPUT.Default;
+	hbaoPass.enabled = composerParameters.hbao;
+	composer.addPass(hbaoPass);
 
-	const gtaoPass2 = new GTAOPass(scene, camera, sizes.width, sizes.height);
-	gtaoPass2.output = GTAOPass.OUTPUT.Default;
-	gtaoPass2.enabled = composerParameters.gtao2;
-	composer.addPass(gtaoPass2);
+	const hbaoPass2 = new HBAOPass(scene, camera, sizes.width, sizes.height);
+	hbaoPass2.output = HBAOPass.OUTPUT.Default;
+	hbaoPass2.enabled = composerParameters.hbao2;
+	composer.addPass(hbaoPass2);
 
 	// Final: Output Pass (Usually the last pass)
 	const outputPass = new OutputPass();
 	composer.addPass(outputPass);
 
-	gtaoPass.updateGtaoMaterial(gtaoParameters);
-	gtaoPass.updatePdMaterial(pdParameters);
-	gtaoPass2.updateGtaoMaterial(gtaoParameters2);
+	hbaoPass.updateHbaoMaterial(hbaoParameters);
+	hbaoPass.updatePdMaterial(pdParameters);
+	hbaoPass2.updateHbaoMaterial(hbaoParameters2);
 }

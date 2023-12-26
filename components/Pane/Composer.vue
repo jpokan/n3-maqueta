@@ -30,11 +30,11 @@ const able = () => {
 
 const passes = [
 	{
-		label: "gtao",
+		label: "hbao",
 		index: 1,
 	},
 	{
-		label: "gtao2",
+		label: "hbao2",
 		index: 2,
 	},
 ];

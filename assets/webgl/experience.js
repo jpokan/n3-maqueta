@@ -1,6 +1,6 @@
 import "assets/css/webgl.css";
 import * as THREE from "three";
-import { pane, fpsgraph } from "./tpgui.js";
+// import { pane, fpsgraph } from "./tpgui.js";
 import { scene } from "./scene.js";
 import { composerParameters, parameters, uniforms } from "./parameters.js";
 import { initCanvas } from "./canvas.js";
@@ -29,25 +29,18 @@ export default class Experience {
 
 			// Start
 			tick();
+			// debugtick();
 			window.__3DEXP__ = true;
 		}
 	}
 }
 
-const clock = new THREE.Clock();
-
 /**
  * Animate
  */
-const tick = () => {
-	fpsgraph.begin()
-	const delta = clock.getDelta();
+const clock = new THREE.Clock();
 
-	if (parameters.animate) {
-		uniforms.u_time.value += delta;
-		pane.refresh()
-	}
-
+const actions = () => {
 	// Update controls
 	controls.update();
 
@@ -57,7 +50,25 @@ const tick = () => {
 	} else {
 		renderer.render(scene, camera);
 	}
+}
 
+const debugtick = () => {
+	fpsgraph.begin()
+	const delta = clock.getDelta();
+
+	if (parameters.animate) {
+		uniforms.u_time.value += delta;
+		pane.refresh()
+	}
+
+	actions()
 	fpsgraph.end()
+	requestAnimationFrame(debugtick);
+}
+
+const tick = () => {
+	actions()
 	requestAnimationFrame(tick);
 };
+
+

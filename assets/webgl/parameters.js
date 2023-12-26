@@ -15,8 +15,8 @@ export const view = {
 
 export const composerParameters = {
 	composer: false,
-	gtao2: false,
-	gtao: false,
+	hbao2: false,
+	hbao: false,
 }
 
 export const uniforms = {
@@ -36,15 +36,15 @@ export const camParameters = {
 	},
 };
 
-// Initializes gtao params
-export const gtaoParameters2 = {
+// Initializes hbao params
+export const hbaoParameters2 = {
 	radius: 0.2,
 	distanceExponent: 1,
 	bias: 0.01,
 	samples: 16,
 };
 
-export const gtaoParameters = {
+export const hbaoParameters = {
 	radius: 10,
 	distanceExponent: 1,
 	bias: 0.01,
