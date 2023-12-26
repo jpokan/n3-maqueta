@@ -12,13 +12,24 @@ export const parameters = {
 export const view = {
 	fps: false,
 	axes: true,
-}
+};
 
 export const composerParameters = {
 	composer: false,
-	hbao2: false,
-	hbao: false,
-}
+	// This array represents the composer passes excluding the render and output pass
+	passes: [
+		{
+			name: 'hbao',
+			enabled: false,
+			index: 1,
+		},
+		{
+			name: 'hbao2',
+			enabled: false,
+			index: 2,
+		},
+	],
+};
 
 export const uniforms = {
 	u_time: { value: 0.0 },

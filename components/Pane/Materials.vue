@@ -1,3 +1,5 @@
 <template>
-	<div></div>
+	<PaneWrapper>
+
+	</PaneWrapper>
 </template>

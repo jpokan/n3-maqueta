@@ -2,12 +2,13 @@
 	<PaneWrapper>
 		<p>POSTPROCESSING</p>
 		---
-		<UCheckbox v-model="composerParameters.composer" label="Effect Composer" @change="able" />
+		<UCheckbox v-model="composerParameters.composer" label="Effect Composer"
+			@change="enabled = composerParameters.composer" />
 		---
 		<p>PASSES</p>
 		---
-		<UCheckbox v-for="item in passes" v-model="composerParameters[item.label]" @change="update(item.index, item.label)"
-			:label="item.label" :disabled="!enabled" />
+		<UCheckbox v-for="item, index in composerParameters.passes" v-model="composerParameters.passes[index].enabled"
+			@change="update(item.index, item.enabled)" :label="item.name" :disabled="!enabled" />
 	</PaneWrapper>
 </template>
 
@@ -17,25 +18,8 @@ import { composer } from "assets/webgl/postprocessing";
 
 const enabled = ref(composerParameters.composer)
 
-const update = (index, label) => {
-	composer.passes[index].enabled = composerParameters[label];
+const update = (index, value) => {
+	composer.passes[index].enabled = value;
 };
 
-const able = () => {
-	enabled.value = composerParameters.composer
-}
-
-// This array represents the composer passes excluding the render and output pass
-// If you update this array, make sure to also check the postprocessing file
-
-const passes = [
-	{
-		label: "hbao",
-		index: 1,
-	},
-	{
-		label: "hbao2",
-		index: 2,
-	},
-];
 </script>
