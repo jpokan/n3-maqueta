@@ -11,6 +11,6 @@ export const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, sizes.pixelRatioLimit));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 

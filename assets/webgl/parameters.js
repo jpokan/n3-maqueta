@@ -1,6 +1,7 @@
 export const sizes = {
 	width: 0,
 	height: 0,
+	pixelRatioLimit: 2,
 };
 
 export const parameters = {

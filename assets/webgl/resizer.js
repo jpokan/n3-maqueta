@@ -16,7 +16,7 @@ function update() {
 
 	// Update renderer
 	renderer.setSize(sizes.width, sizes.height);
-	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+	renderer.setPixelRatio(Math.min(window.devicePixelRatio, sizes.pixelRatioLimit));
 
 	// update composer
 	composer.setSize(sizes.width, sizes.height);
