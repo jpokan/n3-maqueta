@@ -22,13 +22,14 @@ function onPointerUp(event) {
 	console.log(intersects);
 }
 
-window.addEventListener('pointerdown', () => { select = true })
-window.addEventListener('pointermove', () => { select = false })
-window.addEventListener('pointerup', (e) => {
-	if (select) {
-		onPointerUp(e)
-	}
-	select = false
-})
-
+export function initRaycaster() {
+	window.addEventListener('pointerdown', () => { select = true })
+	window.addEventListener('pointermove', () => { select = false })
+	window.addEventListener('pointerup', (e) => {
+		if (select) {
+			onPointerUp(e)
+		}
+		select = false
+	})
+}
 
