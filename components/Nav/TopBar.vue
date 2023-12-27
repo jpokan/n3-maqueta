@@ -11,6 +11,7 @@
 
 	<div class="absolute top-0 right-0 m-2">
 		<div class="flex gap-1 justify-end">
+			<NavFps />
 			<UButton color="white" variant="solid"
 				:trailing-icon="panelOpen ? 'i-heroicons-arrow-right-start-on-rectangle-16-solid' : 'i-heroicons-arrow-left-start-on-rectangle-16-solid'"
 				@click="panelOpen = !panelOpen" />

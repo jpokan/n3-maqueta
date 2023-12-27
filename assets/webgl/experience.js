@@ -9,7 +9,7 @@ import { initResizer } from "./resizer.js";
 import { renderer } from "./renderer.js";
 import { controls } from "./controls.js";
 import { initPostprocessing, composer } from "./postprocessing.js";
-import { initHelpers } from "./helpers.js";
+import { initHelpers, fpsCompute } from "./helpers.js";
 import { initLights } from "./lights.js";
 
 export default class Experience {
@@ -68,6 +68,7 @@ const debugtick = () => {
 
 const tick = () => {
 	actions()
+	fpsCompute()
 	requestAnimationFrame(tick);
 };
 

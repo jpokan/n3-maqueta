@@ -22,6 +22,12 @@ const items = [
 				axesHelper.visible = view.axes
 			},
 		},
+		{
+			label: "fps",
+			shortcuts: ["V", "F"],
+			click: () => {
+			},
+		},
 	],
 
 ];
