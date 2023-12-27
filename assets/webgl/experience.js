@@ -1,7 +1,7 @@
 import "assets/css/webgl.css";
 import * as THREE from "three";
 // import { pane, fpsgraph } from "./tpgui.js";
-import { scene } from "./scene.js";
+import { omni_scene } from "./scene.js";
 import { composerParameters, parameters, uniforms } from "./parameters.js";
 import { initCanvas } from "./canvas.js";
 import { camera, initCamera } from "./camera.js";
@@ -48,7 +48,7 @@ const actions = () => {
 	if (composerParameters.composer) {
 		composer.render();
 	} else {
-		renderer.render(scene, camera);
+		renderer.render(omni_scene, camera);
 	}
 }
 
@@ -70,5 +70,4 @@ const tick = () => {
 	actions()
 	requestAnimationFrame(tick);
 };
-
 

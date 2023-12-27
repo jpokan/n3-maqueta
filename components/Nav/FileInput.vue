@@ -4,7 +4,7 @@
 
 <script setup>
 import { loader } from "assets/webgl/loader.js";
-import { scene } from "assets/webgl/scene.js";
+import { src_scene } from "assets/webgl/scene.js";
 import { importFailMsg } from "assets/toast/messages.js";
 
 const toast = useToast()
@@ -19,7 +19,7 @@ function load(e) {
 		try {
 			const content = e.target.result
 			loader.parse(content, '', (gltf) => {
-				scene.add(gltf.scene)
+				src_scene.add(gltf.scene)
 			})
 		}
 		catch {
