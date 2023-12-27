@@ -11,6 +11,7 @@ import { controls } from "./controls.js";
 import { initPostprocessing, composer } from "./postprocessing.js";
 import { initHelpers, fpsCompute } from "./helpers.js";
 import { initLights } from "./lights.js";
+import { initRaycaster } from "./raycaster.js";
 
 export default class Experience {
 	constructor() {
@@ -21,12 +22,11 @@ export default class Experience {
 			initCanvas();
 			initCamera();
 			initResizer();
-
+			initRaycaster();
 			// 2. Optionals
 			initPostprocessing();
 			initHelpers();
 			initLights();
-
 			// Start
 			tick();
 			// debugtick();
@@ -50,25 +50,24 @@ const actions = () => {
 	} else {
 		renderer.render(omni_scene, camera);
 	}
-}
+};
 
 const debugtick = () => {
-	fpsgraph.begin()
+	fpsgraph.begin();
 	const delta = clock.getDelta();
 
 	if (parameters.animate) {
 		uniforms.u_time.value += delta;
-		pane.refresh()
+		pane.refresh();
 	}
 
-	actions()
-	fpsgraph.end()
+	actions();
+	fpsgraph.end();
 	requestAnimationFrame(debugtick);
-}
-
-const tick = () => {
-	actions()
-	fpsCompute()
-	requestAnimationFrame(tick);
 };
 
+const tick = () => {
+	actions();
+	fpsCompute();
+	requestAnimationFrame(tick);
+};

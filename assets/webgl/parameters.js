@@ -10,7 +10,7 @@ export const parameters = {
 };
 
 export const view = {
-	fps: false,
+	fps: true,
 	axes: true,
 };
 

@@ -26,6 +26,8 @@ const items = [
 			label: "fps",
 			shortcuts: ["V", "F"],
 			click: () => {
+				view.fps = !view.fps
+
 			},
 		},
 	],
