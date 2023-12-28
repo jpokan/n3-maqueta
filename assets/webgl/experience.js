@@ -1,6 +1,5 @@
 import "assets/css/webgl.css";
 import * as THREE from "three";
-// import { pane, fpsgraph } from "./tpgui.js";
 import { omni_scene } from "./scene.js";
 import { composerParameters, parameters, uniforms } from "./parameters.js";
 import { initCanvas } from "./canvas.js";

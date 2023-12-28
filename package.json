@@ -11,11 +11,9 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.0.6",
-    "@tweakpane/plugin-essentials": "^0.2.0",
     "@types/three": "^0.159.0",
     "nuxt": "^3.9.0",
     "three": "^0.159.0",
-    "tweakpane": "^4.0.1",
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },
