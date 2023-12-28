@@ -1,3 +1,5 @@
+import { reactive } from "vue";
+
 export const sizes = {
 	width: 0,
 	height: 0,
@@ -9,12 +11,12 @@ export const parameters = {
 	animate: false,
 };
 
-export const view = {
+export const view = reactive({
 	fps: true,
 	axes: true,
-};
+});
 
-export const composerParameters = {
+export const composerParameters = reactive({
 	composer: false,
 	// This array represents the composer passes excluding the render and output pass
 	passes: [
@@ -29,7 +31,7 @@ export const composerParameters = {
 			index: 2,
 		},
 	],
-};
+});
 
 export const uniforms = {
 	u_time: { value: 0.0 },

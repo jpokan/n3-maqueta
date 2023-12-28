@@ -27,7 +27,6 @@ const items = [
 			shortcuts: ["V", "F"],
 			click: () => {
 				view.fps = !view.fps
-
 			},
 		},
 	],
