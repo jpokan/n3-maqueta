@@ -4,6 +4,7 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { HBAOPass } from "three/addons/postprocessing/HBAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 import { omni_scene } from "./scene";
 import { camera } from "./camera";
 import { renderer } from "./renderer";
@@ -34,7 +35,9 @@ export function initPostprocessing() {
 	hbaoPass2.output = HBAOPass.OUTPUT.Default;
 	hbaoPass2.enabled = composerParameters.passes[1].enabled;
 	composer.addPass(hbaoPass2);
-
+	// 3. smaa
+	const smaaPass = new SMAAPass(sizes.width * pixelRatio, sizes.height * pixelRatio);
+	composer.addPass(smaaPass)
 	// Final: Output Pass (Usually the last pass)
 	const outputPass = new OutputPass();
 	composer.addPass(outputPass);

@@ -30,6 +30,11 @@ export const composerParameters = reactive({
 			enabled: false,
 			index: 2,
 		},
+		{
+			name: 'smaa',
+			enabled: false,
+			index: 3,
+		},
 	],
 });
 
