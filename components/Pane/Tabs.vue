@@ -25,7 +25,7 @@
 			<PaneScene />
 		</template>
 		<template #object="">
-			<PaneObject />
+			<PaneObjectProperties />
 		</template>
 		<template #materials="">
 			<PaneMaterials />

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { helpersGroup } from "./scene.js";
+import { helpers_group } from "./scene.js";
 import { reactive } from "vue";
 import { view } from "./parameters.js";
 
@@ -7,7 +7,7 @@ export const axesHelper = new THREE.AxesHelper(1000);
 
 export function initHelpers() {
 	// Create axesHelper
-	helpersGroup.add(axesHelper);
+	helpers_group.add(axesHelper);
 }
 
 const times = [];
@@ -25,6 +25,3 @@ export function fpsCompute() {
 	fps.value = times.length;
 }
 
-export const selection = reactive({
-	value: null
-})

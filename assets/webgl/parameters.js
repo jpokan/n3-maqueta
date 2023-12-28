@@ -30,6 +30,11 @@ export const composerParameters = reactive({
 			enabled: false,
 			index: 2,
 		},
+		{
+			name: 'outline',
+			enabled: false,
+			index: 3,
+		},
 	],
 });
 
@@ -73,3 +78,14 @@ export const pdParameters = {
 	rings: 4,
 	samples: 8,
 };
+
+export const outlineParameters = {
+	edgeStrength: 5.0,
+	edgeGlow: 0.0,
+	edgeThickness: 1.0,
+	pulsePeriod: 0,
+	rotate: false,
+	usePatternTexture: false,
+	visibleEdgeColor: '#FFA500',
+	hiddenEdgeColor: '#000000',
+}
