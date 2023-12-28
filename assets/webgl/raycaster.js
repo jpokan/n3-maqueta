@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { src_scene } from './scene';
 import { camera } from './camera';
 import { canvas } from './canvas';
-import { outlinePass } from 'assets/webgl/postprocessing'
+import { selection } from './helpers';
 export const raycaster = new THREE.Raycaster()
 
 export const pointer = new THREE.Vector2();
@@ -21,8 +21,11 @@ function onPointerUp(event) {
 	const intersects = raycaster.intersectObjects(src_scene.children);
 
 	if (intersects.length > 0) {
-		outlinePass.selectedObjects = []
-		outlinePass.selectedObjects.push(intersects[0].object)
+		for (let i = 0; i < selection.items.length; i++) {
+			selection.items[i].dispose()
+		}
+		selection.items = []
+		selection.items = push(intersects[0].object)
 	}
 }
 
