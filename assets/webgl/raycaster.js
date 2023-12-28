@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { src_scene } from './scene';
 import { camera } from './camera';
+import { canvas } from './canvas';
 
 export const raycaster = new THREE.Raycaster()
 
@@ -23,9 +24,9 @@ function onPointerUp(event) {
 }
 
 export function initRaycaster() {
-	window.addEventListener('pointerdown', () => { select = true })
-	window.addEventListener('pointermove', () => { select = false })
-	window.addEventListener('pointerup', (e) => {
+	canvas.addEventListener('pointerdown', () => { select = true })
+	canvas.addEventListener('pointermove', () => { select = false })
+	canvas.addEventListener('pointerup', (e) => {
 		if (select) {
 			onPointerUp(e)
 		}
