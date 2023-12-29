@@ -4,7 +4,9 @@ import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { HBAOPass } from "three/addons/postprocessing/HBAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
-import { omni_scene } from "./scene";
+import { OutlinePass } from "three/addons/postprocessing/OutlinePass.js";
+import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js"
+import { omni_scene, selection_scene } from "./scene";
 import { camera } from "./camera";
 import { renderer } from "./renderer";
 
@@ -20,6 +22,15 @@ renderTarget.texture.name = "EffectComposer.rt1";
 
 export const composer = new EffectComposer(renderer, renderTarget);
 
+export const outlinePass = new OutlinePass(new THREE.Vector2(sizes.width, sizes.height), omni_scene, camera);
+outlinePass.edgeStrength = 4;
+outlinePass.edgeThickness = 1;
+console.log(outlinePass);
+outlinePass.downSampleRatio = pixelRatio;
+outlinePass.visibleEdgeColor.set(new THREE.Color('#ff0000'))
+outlinePass.hiddenEdgeColor.set(new THREE.Color('#ff0000'))
+outlinePass.overlayMaterial.blending = THREE.CustomBlending
+
 export function initPostprocessing() {
 	// 0. Render Pass
 	const renderPass = new RenderPass(omni_scene, camera);
@@ -34,6 +45,9 @@ export function initPostprocessing() {
 	hbaoPass2.output = HBAOPass.OUTPUT.Default;
 	hbaoPass2.enabled = composerParameters.passes[1].enabled;
 	composer.addPass(hbaoPass2);
+	// 3. outline
+	composer.addPass(outlinePass);
+
 	// Final: Output Pass (Usually the last pass)
 	const outputPass = new OutputPass();
 	composer.addPass(outputPass);

@@ -17,7 +17,7 @@ export const view = reactive({
 });
 
 export const composerParameters = reactive({
-	composer: false,
+	composer: true,
 	// This array represents the composer passes excluding the render and output pass
 	passes: [
 		{
@@ -29,6 +29,11 @@ export const composerParameters = reactive({
 			name: 'hbao2',
 			enabled: false,
 			index: 2,
+		},
+		{
+			name: 'outline',
+			enabled: true,
+			index: 3,
 		},
 	],
 });
