@@ -5,8 +5,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { HBAOPass } from "three/addons/postprocessing/HBAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OutlinePass } from "three/addons/postprocessing/OutlinePass.js";
-import { SMAAPass } from "three/addons/postprocessing/SMAAPass.js"
-import { omni_scene, selection_scene } from "./scene";
+import { omni_scene } from "./scene";
 import { camera } from "./camera";
 import { renderer } from "./renderer";
 
@@ -16,11 +15,11 @@ const maxSamples = renderer.capabilities.maxSamples;
 const renderTarget = new THREE.WebGLRenderTarget(
 	sizes.width * pixelRatio,
 	sizes.height * pixelRatio,
-	{ type: THREE.HalfFloatType, samples: maxSamples, }
+	{ type: THREE.HalfFloatType, samples: maxSamples }
 );
 renderTarget.texture.name = "EffectComposer.rt1";
 
-export const composer = new EffectComposer(renderer, renderTarget);
+export const composer = new EffectComposer(renderer);
 
 export const outlinePass = new OutlinePass(new THREE.Vector2(sizes.width, sizes.height), omni_scene, camera);
 outlinePass.edgeStrength = 4;
