@@ -25,8 +25,7 @@ export const composer = new EffectComposer(renderer, renderTarget);
 export const outlinePass = new OutlinePass(new THREE.Vector2(sizes.width, sizes.height), omni_scene, camera);
 outlinePass.edgeStrength = 4;
 outlinePass.edgeThickness = 1;
-console.log(outlinePass);
-outlinePass.downSampleRatio = pixelRatio;
+outlinePass.downSampleRatio = 1;
 outlinePass.visibleEdgeColor.set(new THREE.Color('#ff0000'))
 outlinePass.hiddenEdgeColor.set(new THREE.Color('#ff0000'))
 outlinePass.overlayMaterial.blending = THREE.CustomBlending

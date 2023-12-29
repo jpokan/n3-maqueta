@@ -6,7 +6,7 @@ import { sizes } from "./parameters";
  */
 export const renderer = new THREE.WebGLRenderer({
 	canvas: canvas,
-	antialias: true,
+	antialias: false,
 	alpha: true,
 });
 
