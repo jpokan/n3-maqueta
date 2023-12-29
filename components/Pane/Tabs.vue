@@ -41,22 +41,22 @@ const items = [
 	{
 		label: "Scene",
 		slot: "scene",
-		icon: "i-heroicons-rectangle-group",
+		icon: "i-heroicons-rectangle-group-16-solid",
 	},
 	{
 		label: "Object Properties",
 		slot: "object",
-		icon: "i-heroicons-viewfinder-circle",
+		icon: "i-heroicons-viewfinder-circle-16-solid",
 	},
 	{
 		label: "Materials",
 		slot: "materials",
-		icon: "i-heroicons-truck",
+		icon: "i-heroicons-swatch-16-solid",
 	},
 	{
 		label: "Composer",
 		slot: "composer",
-		icon: "i-heroicons-sparkles",
+		icon: "i-heroicons-sparkles-16-solid",
 	},
 
 ];

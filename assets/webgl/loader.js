@@ -1,4 +1,5 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { ColladaLoader } from "three/addons/loaders/ColladaLoader.js"
 
-export const loader = new GLTFLoader();
-
+export const gltfLoader = new GLTFLoader();
+export const colladaLoader = new ColladaLoader();
