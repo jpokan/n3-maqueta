@@ -29,6 +29,17 @@ export default defineAppConfig({
 			item: {
 				size: 'text-xs'
 			}
+		},
+		input: {
+			default: {
+				size: '2xs'
+			},
+			base: "disabled:cursor-auto",
+			color: {
+				white: {
+					outline: 'bg-gray-50'
+				}
+			}
 		}
 	}
 })

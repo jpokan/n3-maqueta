@@ -4,6 +4,7 @@ import { camera } from './camera';
 import { canvas } from './canvas';
 import { selection } from './helpers';
 import { outlinePass } from './postprocessing';
+
 export const raycaster = new THREE.Raycaster()
 
 export const pointer = new THREE.Vector2();
@@ -29,6 +30,13 @@ function onPointerUp(event) {
 		const object = intersects[0].object
 		selection.items.push(object)
 		outlinePass.selectedObjects = selection.items
+		console.log(selection.items[0].name);
+		console.log(selection.items[0].type);
+		console.log(selection.items[0].position);
+		console.log(selection.items[0].rotation);
+		console.log(selection.items[0].scale);
+		console.log(selection.items[0].visible);
+		console.log(selection.items[0].material);
 	}
 }
 
