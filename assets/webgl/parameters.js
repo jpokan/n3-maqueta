@@ -30,11 +30,6 @@ export const composerParameters = reactive({
 			enabled: false,
 			index: 2,
 		},
-		{
-			name: 'outline',
-			enabled: true,
-			index: 3,
-		},
 	],
 });
 

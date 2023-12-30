@@ -2,7 +2,7 @@
 	<UDropdown :items="items" :ui="{
 		item: {
 			disabled:
-				'cursor-text select-text font-medium',
+				'cursor-text select-text',
 		},
 	}" :popper="{ placement: 'bottom-start' }">
 		<UButton color="white" variant="solid" trailing-icon="i-heroicons-bars-3-16-solid" />
