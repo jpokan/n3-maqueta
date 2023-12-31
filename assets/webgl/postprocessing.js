@@ -25,8 +25,8 @@ export const outlinePass = new OutlinePass(new THREE.Vector2(sizes.width, sizes.
 outlinePass.edgeStrength = 4;
 outlinePass.edgeThickness = 1;
 outlinePass.downSampleRatio = 1;
-outlinePass.visibleEdgeColor.set(new THREE.Color('#ff0000'))
-outlinePass.hiddenEdgeColor.set(new THREE.Color('#ff0000'))
+outlinePass.visibleEdgeColor.set(new THREE.Color('#ec4899'))
+outlinePass.hiddenEdgeColor.set(new THREE.Color('#ec4899'))
 outlinePass.overlayMaterial.blending = THREE.CustomBlending
 
 export function initPostprocessing() {

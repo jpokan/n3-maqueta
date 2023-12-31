@@ -30,13 +30,7 @@ function onPointerUp(event) {
 		const object = intersects[0].object
 		selection.items.push(object)
 		outlinePass.selectedObjects = selection.items
-		console.log(selection.items[0].name);
-		console.log(selection.items[0].type);
-		console.log(selection.items[0].position);
-		console.log(selection.items[0].rotation);
-		console.log(selection.items[0].scale);
-		console.log(selection.items[0].visible);
-		console.log(selection.items[0].material);
+		console.log(selection.items[0]);
 	}
 }
 
