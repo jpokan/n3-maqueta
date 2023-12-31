@@ -1,7 +1,7 @@
 <template>
 	<PaneWrapper>
 		<PaneLabel label="Object Properties" />
-		<div v-if="selection.items.length > 0" class="flex flex-col gap-1 text-xs">
+		<PaneWrapper v-if="selection.items.length > 0">
 			<PaneText label="Name">
 				<UInput size="2xs" color="white" variant="outline" v-model="selection.items[0].name" />
 			</PaneText>
@@ -38,7 +38,7 @@
 					<UInput disabled variant="none" v-model="selection.items[0].material.type" />
 				</div>
 			</PaneText>
-		</div>
+		</PaneWrapper>
 	</PaneWrapper>
 </template>
 
