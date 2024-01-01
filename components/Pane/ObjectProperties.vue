@@ -1,7 +1,7 @@
 <template>
 	<PaneWrapper>
 		<PaneLabel label="Object Properties" />
-		<PaneWrapper v-if="selection.items.length > 0">
+		<PaneWrapper v-if="selection.items.length > 0 && selection.items[0].type === 'Mesh'">
 			<PaneText label="Name">
 				<UInput size="2xs" color="white" variant="outline" v-model="selection.items[0].name" />
 			</PaneText>

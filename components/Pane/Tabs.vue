@@ -22,7 +22,7 @@
 		</template>
 
 		<template #scene="">
-			<PaneScene />
+			<PaneSceneExplorer />
 		</template>
 		<template #object="">
 			<PaneObjectProperties />

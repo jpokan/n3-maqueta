@@ -12,9 +12,9 @@ omni_scene.name = 'omni_scene'
  * [2] selection_scene - selected objects
  * */
 
-export const src_scene = new THREE.Scene()
+export const src_scene = reactive(new THREE.Scene())
 src_scene.name = 'src_scene'
-omni_scene.add(src_scene)
+omni_scene.add(toRaw(src_scene))
 
 export const helpers_group = new THREE.Group()
 helpers_group.name = 'helpers_group'

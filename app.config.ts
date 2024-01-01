@@ -37,7 +37,7 @@ export default defineAppConfig({
 			base: "disabled:cursor-auto",
 			color: {
 				white: {
-					outline: 'bg-gray-50'
+					outline: 'focus:ring-1 ring-0'
 				}
 			}
 		}
