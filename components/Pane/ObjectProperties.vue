@@ -1,7 +1,7 @@
 <template>
 	<PaneWrapper>
 		<PaneLabel label="Object Properties" />
-		<PaneWrapper v-if="selection.items.length > 0 && selection.items[0].type === 'Mesh'">
+		<PaneWrapper v-if="logic">
 			<PaneText label="Name">
 				<UInput size="2xs" color="white" variant="outline" v-model="selection.items[0].name" />
 			</PaneText>
@@ -32,7 +32,7 @@
 			<PaneText label="Visibility">
 				<UCheckbox label="" v-model="selection.items[0].visible" />
 			</PaneText>
-			<PaneText label="Material">
+			<PaneText v-if="selection.items[0].material" label="Material">
 				<div class="flex flex-col gap-1">
 					<UInput v-model="selection.items[0].material.name" />
 					<UInput disabled variant="none" v-model="selection.items[0].material.type" />
@@ -45,4 +45,9 @@
 <script setup>
 import { PaneLabel } from "#components";
 import { selection } from "~/assets/webgl/helpers";
+
+const logic = computed(() => {
+	selection.items.length > 0 ? true : false
+})
+
 </script>
