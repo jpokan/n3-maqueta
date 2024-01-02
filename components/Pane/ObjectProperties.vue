@@ -47,7 +47,7 @@ import { PaneLabel } from "#components";
 import { selection } from "~/assets/webgl/helpers";
 
 const logic = computed(() => {
-	selection.items.length > 0 ? true : false
+	return selection.items.length > 0 ? true : false;
 })
 
 </script>
