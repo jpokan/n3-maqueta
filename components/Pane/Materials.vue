@@ -1,6 +1,5 @@
 <template>
 	<PaneWrapper>
-		<PaneLabel label="Materials" />
 	</PaneWrapper>
 </template>
 

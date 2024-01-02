@@ -1,5 +1,5 @@
 <template>
-	<UTabs :items="items" orientation="vertical" :ui="{
+	<UTabs @change="onChange" :items="items" orientation="vertical" :ui="{
 		wrapper: 'flex items-start gap-1 space-y-0',
 		list: {
 			base: 'sticky top-0',
@@ -21,32 +21,34 @@
 			<UIcon :name="item.icon" class="w-4 h-4 flex-shrink" :class="selected ? 'text-pink-400' : ''" />
 		</template>
 
-		<template #scene="">
+		<template #scene-explorer="">
 			<PaneSceneExplorer />
 		</template>
-		<template #object="">
-			<PaneObjectProperties />
+		<template #slides="">
+			<PaneSlides />
 		</template>
 		<template #materials="">
 			<PaneMaterials />
 		</template>
-		<template #composer="">
+		<template #postprocessing="">
 			<PaneComposer />
 		</template>
 	</UTabs>
 </template>
 
 <script setup>
+const emit = defineEmits(['tab-change']);
+
 const items = [
 	{
-		label: "Scene",
-		slot: "scene",
+		label: "Scene Explorer",
+		slot: "scene-explorer",
 		icon: "i-heroicons-rectangle-group-16-solid",
 	},
 	{
-		label: "Object Properties",
-		slot: "object",
-		icon: "i-heroicons-viewfinder-circle-16-solid",
+		label: "Slides",
+		slot: "slides",
+		icon: "i-heroicons-rectangle-stack-16-solid",
 	},
 	{
 		label: "Materials",
@@ -54,10 +56,15 @@ const items = [
 		icon: "i-heroicons-swatch-16-solid",
 	},
 	{
-		label: "Composer",
-		slot: "composer",
+		label: "Postprocessing",
+		slot: "postprocessing",
 		icon: "i-heroicons-sparkles-16-solid",
 	},
 
 ];
+
+function onChange(index) {
+	const item = items[index]
+	emit('tab-change', item.label)
+}
 </script>

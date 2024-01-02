@@ -1,11 +1,6 @@
 <template>
 	<PaneWrapper>
-		<PaneLabel label="Scene Explorer" />
-		<PaneWrapper>
-			<div v-for="item in src_scene.children" :key="item.uuid">
-				<PaneSceneObject :object="item" />
-			</div>
-		</PaneWrapper>
+		<PaneSceneObject v-for="item in src_scene.children" :key="item.uuid" :object="item" />
 	</PaneWrapper>
 </template>
 

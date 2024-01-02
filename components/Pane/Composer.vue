@@ -3,7 +3,7 @@
 		<UAccordion :items="items" open-icon="i-heroicons-plus" close-icon="i-heroicons-minus" multiple>
 
 			<template #effect-composer>
-				<UCheckbox v-model="composerParameters.composer" label="Effect Composer" />
+				<UCheckbox v-model="composerParameters.composer" label="Enabled" />
 			</template>
 
 			<template #passes>
@@ -25,7 +25,7 @@ const update = (index, value) => {
 
 const items = [
 	{
-		label: 'Postprocessing',
+		label: 'Effect Composer',
 		slot: 'effect-composer',
 		defaultOpen: true,
 	},
