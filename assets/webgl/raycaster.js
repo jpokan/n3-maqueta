@@ -9,7 +9,7 @@ export const raycaster = new THREE.Raycaster()
 
 export const pointer = new THREE.Vector2();
 
-let select = false
+let select = false;
 
 function onPointerUp(event) {
 
@@ -27,10 +27,8 @@ function onPointerUp(event) {
 	outlinePass.selectedObjects = selection.items
 
 	if (intersects.length > 0) {
-		const object = intersects[0].object
-		selection.items.push(object)
+		selection.items.push(intersects[0].object)
 		outlinePass.selectedObjects = selection.items
-		console.log(selection.items[0]);
 	}
 }
 

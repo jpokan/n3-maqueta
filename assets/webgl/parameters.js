@@ -51,7 +51,7 @@ export const camParameters = {
 };
 
 // Initializes hbao params
-export const hbaoParameters2 = {
+export const hbao2Parameters = {
 	radius: 0.2,
 	distanceExponent: 1,
 	bias: 0.01,
@@ -74,3 +74,6 @@ export const pdParameters = {
 	samples: 8,
 };
 
+export const ambientLightParameters = reactive({
+	intensity: 3
+})

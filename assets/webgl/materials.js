@@ -1,11 +1,11 @@
 import * as THREE from 'three'
 
-// Create material
-export const material = new THREE.MeshBasicMaterial();
-material.color = new THREE.Color("#ffffff");
-material.polygonOffset = true;
-material.polygonOffsetFactor = 1;
-material.polygonOffsetUnits = 1;
+export const basicMaterial = new THREE.MeshBasicMaterial({
+	color: new THREE.Color("#ffffff"),
+	polygonOffset: true,
+	polygonOffsetFactor: 1,
+	polygonOffsetUnits: 1,
+});
 
 export const lineBasicMaterial = new THREE.LineBasicMaterial({
 	color: new THREE.Color(0xFFA500),
@@ -20,3 +20,9 @@ export const wireframeMaterial = new THREE.MeshBasicMaterial({
 	wireframe: true,
 	depthTest: false
 })
+
+export const materials = reactive([
+	basicMaterial,
+	lineBasicMaterial,
+	wireframeMaterial
+])

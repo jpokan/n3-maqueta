@@ -21,7 +21,7 @@
 			<UIcon :name="item.icon" class="w-4 h-4 flex-shrink" :class="selected ? 'text-pink-400' : ''" />
 		</template>
 
-		<template #scene-explorer="">
+		<template #src_scene="">
 			<PaneSceneExplorer />
 		</template>
 		<template #slides="">
@@ -29,6 +29,9 @@
 		</template>
 		<template #materials="">
 			<PaneMaterials />
+		</template>
+		<template #world="">
+			<PaneWorldSection />
 		</template>
 		<template #postprocessing="">
 			<PaneComposer />
@@ -42,7 +45,7 @@ const emit = defineEmits(['tab-change']);
 const items = [
 	{
 		label: "Scene Explorer",
-		slot: "scene-explorer",
+		slot: "src_scene",
 		icon: "i-heroicons-rectangle-group-16-solid",
 	},
 	{
@@ -54,6 +57,11 @@ const items = [
 		label: "Materials",
 		slot: "materials",
 		icon: "i-heroicons-swatch-16-solid",
+	},
+	{
+		label: "World",
+		slot: "world",
+		icon: "i-heroicons-globe-americas-16-solid",
 	},
 	{
 		label: "Postprocessing",
