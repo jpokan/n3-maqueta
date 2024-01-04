@@ -1,6 +1,7 @@
 <template>
 	<PaneWrapper>
-		<div @click="createMaterial">Add</div>
+		<UButton @click="createMaterial" icon="i-heroicons-plus" size="xs" variant="solid" color="white"
+			label="New Material" />
 		<div v-for="material, index in materials"
 			class="flex flex-row items-center px-0.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
 			<PaneInput :value="material.name" @update:value="update(material, $event)" />
@@ -18,6 +19,7 @@ function parseMaterials() { }
 
 function createMaterial() {
 	const material = new THREE.MeshBasicMaterial();
+	material.name = "Basic Material"
 	materials.push(material);
 }
 
