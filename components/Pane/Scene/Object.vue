@@ -1,16 +1,12 @@
 <template>
-	<div @click="select(object)" :class="{ 'bg-gray-200 dark:bg-gray-950': selected }"
+	<div @click="select(OBJ3D)" :class="{ 'bg-gray-200 dark:bg-gray-950': selected }"
 		class="flex flex-row items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
-		<UIcon v-if="object.children.length > 0" :name="opened ? 'i-heroicons-minus' : 'i-heroicons-plus'"
+		<UIcon v-if="OBJ3D.children.length > 0" :name="opened ? 'i-heroicons-minus' : 'i-heroicons-plus'"
 			class="cursor-pointer ml-2" @click.stop="open" />
-		<div class="w-full" @dblclick="deactivate($event)">
-			<UInput :ui="{
-				base: 'disabled:bg-transparent disabled:pointer-events-none',
-			}" size="2xs" v-model="object.name" :disabled="active" @blur="activate" />
-		</div>
+		<PaneInput :value="OBJ3D.name" @update:value="update(OBJ3D, $event)" />
 	</div>
-	<div v-show="opened" class="ml-5" v-for="item in object.children" :key="item.uuid">
-		<PaneSceneObject :object="item" />
+	<div v-show="opened" class="ml-5" v-for="item in OBJ3D.children" :key="item.uuid">
+		<PaneSceneObject :OBJ3D="item" />
 	</div>
 </template>
 
@@ -18,33 +14,24 @@
 import { outlinePass } from "assets/webgl/postprocessing.js";
 import { selection } from "assets/webgl/helpers.js";
 
-const props = defineProps(["object"]);
-
-const active = ref(true);
+const props = defineProps(["OBJ3D"]);
 const opened = ref(false);
+
+function update(OBJ3D, event) {
+	OBJ3D.name = event
+}
 
 const selected = computed(() => {
 	if (selection.items.length > 0) {
-		return props.object.uuid === selection.items[0].uuid ? true : false;
+		return props.OBJ3D.uuid === selection.items[0].uuid ? true : false;
 	}
 })
 
-function deactivate(e) {
-	active.value = false;
-	nextTick(() => {
-		if (e.target.firstChild instanceof HTMLInputElement) e.target.firstChild.focus();
-	});
-}
-
-function activate() {
-	active.value = true;
-}
-
-function select(object) {
+function select(OBJ3D) {
 	selection.items = [];
 	outlinePass.selectedObjects = selection.items;
 
-	selection.items.push(object);
+	selection.items.push(OBJ3D);
 	outlinePass.selectedObjects = selection.items;
 }
 

@@ -1,6 +1,6 @@
 <template>
 	<PaneWrapper>
-		<PaneSceneObject v-for="item in src_scene.children" :key="item.uuid" :object="item" />
+		<PaneSceneObject v-for="item in src_scene.children" :key="item.uuid" :OBJ3D="item" />
 	</PaneWrapper>
 </template>
 
