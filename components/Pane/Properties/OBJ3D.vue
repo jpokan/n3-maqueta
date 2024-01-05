@@ -27,7 +27,7 @@
 		</div>
 	</PaneProperty>
 	<PaneProperty label="Visibility">
-		<UCheckbox label="" v-model="selection.items[0].visible" />
+		<UCheckbox v-model="selection.items[0].visible" />
 	</PaneProperty>
 	<PaneProperty v-if="selection.items[0].material" label="Material">
 		<div class="flex flex-col gap-0.5">

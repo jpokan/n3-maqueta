@@ -28,7 +28,7 @@
 			<PaneSlides />
 		</template>
 		<template #materials>
-			<PaneMaterials />
+			<PaneMaterialsExplorer />
 		</template>
 		<template #world>
 			<PaneWorldSection />

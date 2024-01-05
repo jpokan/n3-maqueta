@@ -1,4 +1,11 @@
 import * as THREE from 'three'
+import { src_scene } from './scene';
+
+export function parseMaterials() {
+	src_scene.traverse((obj) => {
+		if (obj.material) materials.add(obj.material)
+	})
+}
 
 export const basicMaterial = new THREE.MeshBasicMaterial({
 	name: 'Basic Material',
@@ -10,7 +17,7 @@ export const basicMaterial = new THREE.MeshBasicMaterial({
 
 export const lineBasicMaterial = new THREE.LineBasicMaterial({
 	name: 'Line Basic Material',
-	color: new THREE.Color(0xFFA500),
+	color: new THREE.Color("#ffa500"),
 	depthTest: false,
 });
 
@@ -24,8 +31,8 @@ export const wireframeMaterial = new THREE.MeshBasicMaterial({
 	depthTest: false
 })
 
-export const materials = reactive([
+export const materials = reactive(new Set([
 	basicMaterial,
 	lineBasicMaterial,
 	wireframeMaterial
-])
+]))
