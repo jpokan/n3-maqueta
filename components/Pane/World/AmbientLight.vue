@@ -6,7 +6,6 @@
 		<PaneProperty label="Intensity">
 			<UInput type="number" step="0.1" v-model="ambientLight.intensity" />
 		</PaneProperty>
-
 	</div>
 </template>
 

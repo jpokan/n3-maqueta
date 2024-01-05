@@ -2,7 +2,8 @@
 	<PaneWrapper>
 		<UButton @click="createMaterial" icon="i-heroicons-plus" size="xs" variant="solid" color="white"
 			label="New Material" />
-		<div v-for="material, index in materials"
+		<div v-for="(material, index) in materials" @click="select(material)"
+			:class="{ 'bg-gray-200 dark:bg-gray-950': selected }"
 			class="flex flex-row items-center px-0.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
 			<PaneInput :value="material.name" @update:value="update(material, $event)" />
 			<UButton @click="removeMaterial(index, material)" icon="i-heroicons-trash" variant="link" color="gray" size="xs"
@@ -14,18 +15,31 @@
 <script setup>
 import * as THREE from "three";
 import { materials } from "assets/webgl/materials";
+import { selection } from "assets/webgl/helpers";
+
 // TO DO: get all unique materials from src_scene.children
 function parseMaterials() { }
 
+const selected = computed(() => {
+	if (selection.material.length > 0) {
+		return selection.material[0].uuid ? true : false;
+	}
+});
+
+function select(material) {
+	selection.material = [];
+	selection.material.push(material);
+}
+
 function createMaterial() {
 	const material = new THREE.MeshBasicMaterial();
-	material.name = "Basic Material"
+	material.name = "Basic Material";
 	materials.push(material);
 }
 
 function removeMaterial(index, material) {
-	materials.splice(index, 1)
-	material.dispose()
+	materials.splice(index, 1);
+	material.dispose();
 }
 
 function update(material, event) {
@@ -33,7 +47,6 @@ function update(material, event) {
 }
 
 onMounted(() => {
-	console.log(materials);
 	parseMaterials();
 });
 </script>

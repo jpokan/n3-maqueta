@@ -27,4 +27,5 @@ export function fpsCompute() {
 
 export const selection = reactive({
 	items: [],
+	material: [],
 });

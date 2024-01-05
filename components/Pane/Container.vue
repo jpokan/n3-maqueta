@@ -7,7 +7,7 @@
 				rounded-md shadow-lg flex justify-between flex-col gap-1">
 				<PaneLabel :label="label" />
 				<PaneTabs class="h-full overflow-y-auto pr-1" @tab-change="changeLabel" />
-				<PaneObjectProperties />
+				<PaneProperties :tabIndex="idx" />
 			</div>
 		</Transition>
 	</ClientOnly>
@@ -15,9 +15,11 @@
 
 <script setup>
 const props = defineProps(["opened"]);
+const label = ref('Scene Explorer');
+const idx = ref(0);
 
-const label = ref('Scene Explorer')
-function changeLabel(e) {
+function changeLabel(e, index) {
+	idx.value = index
 	label.value = e
 }
 </script>

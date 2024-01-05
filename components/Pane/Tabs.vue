@@ -1,5 +1,5 @@
 <template>
-	<UTabs @change="onChange" :items="items" orientation="vertical" :ui="{
+	<UTabs :default-index="0" @change="onChange" :items="items" orientation="vertical" :ui="{
 		wrapper: 'flex items-start gap-1 space-y-0',
 		list: {
 			base: 'sticky top-0',
@@ -21,19 +21,19 @@
 			<UIcon :name="item.icon" class="w-4 h-4 flex-shrink" :class="selected ? 'text-pink-400' : ''" />
 		</template>
 
-		<template #src_scene="">
+		<template #src_scene>
 			<PaneSceneExplorer />
 		</template>
-		<template #slides="">
+		<template #slides>
 			<PaneSlides />
 		</template>
-		<template #materials="">
+		<template #materials>
 			<PaneMaterials />
 		</template>
-		<template #world="">
+		<template #world>
 			<PaneWorldSection />
 		</template>
-		<template #postprocessing="">
+		<template #postprocessing>
 			<PaneComposer />
 		</template>
 	</UTabs>
@@ -73,6 +73,6 @@ const items = [
 
 function onChange(index) {
 	const item = items[index]
-	emit('tab-change', item.label)
+	emit('tab-change', item.label, index)
 }
 </script>
