@@ -8,15 +8,16 @@
 
 <script setup>
 import * as THREE from "three";
-import { parseMaterials, materials } from "assets/webgl/materials";
+import { materials, parseMaterials } from "assets/webgl/materials";
 
 function createMaterial() {
 	const material = new THREE.MeshBasicMaterial();
 	material.name = "Basic Material";
-	materials.push(material);
+	materials.add(material);
 }
 
 onMounted(() => {
-	parseMaterials();
-});
+	parseMaterials()
+})
+
 </script>

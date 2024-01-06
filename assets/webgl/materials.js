@@ -7,8 +7,17 @@ export function parseMaterials() {
 	})
 }
 
+export function removeMaterialFromScene(material) {
+	src_scene.traverse((obj) => {
+		if (obj.material === material) {
+			obj.material = basicMaterial
+			material.dispose()
+		}
+	})
+}
+
 export const basicMaterial = new THREE.MeshBasicMaterial({
-	name: 'Basic Material',
+	name: 'Default Material',
 	color: new THREE.Color("#ffffff"),
 	polygonOffset: true,
 	polygonOffsetFactor: 1,

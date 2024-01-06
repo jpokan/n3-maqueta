@@ -24,11 +24,13 @@ function onPointerUp(event) {
 
 	// clear selection_scene
 	selection.items = []
+	selection.material = []
 	outlinePass.selectedObjects = selection.items
 
 	if (intersects.length > 0) {
 		selection.items.push(intersects[0].object)
 		outlinePass.selectedObjects = selection.items
+		selection.material.push(intersects[0].object.material)
 	}
 }
 

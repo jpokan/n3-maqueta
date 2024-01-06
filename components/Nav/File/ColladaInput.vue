@@ -20,6 +20,7 @@ function load(e) {
 		try {
 			const dae = colladaLoader.parse(content, '')
 			src_scene.add(dae.scene)
+			parseMaterials()
 		}
 		catch {
 			toast.add(importFailMsg)

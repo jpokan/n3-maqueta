@@ -31,12 +31,55 @@
 	</PaneProperty>
 	<PaneProperty v-if="selection.items[0].material" label="Material">
 		<div class="flex flex-col gap-0.5">
-			<UInput v-model="selection.items[0].material.name" />
+			<USelectMenu v-model="selected" size="2xs" @change="update($event)" :options="materialArray"
+				option-attribute="name" />
 			<UInput disabled variant="none" v-model="selection.items[0].material.type" />
 		</div>
 	</PaneProperty>
 </template>
 
 <script setup>
-import { selection } from "assets/webgl/helpers"
+import { materials } from "assets/webgl/materials";
+import { selection } from "assets/webgl/helpers";
+
+const materialArray = [];
+const selected = ref(materialArray[0]);
+let initialIndex = 0;
+
+materials.forEach((el) => {
+	materialArray.push({
+		name: el.name,
+		material: el,
+	});
+});
+
+function setupIndex() {
+	if (selection.items[0].material) {
+		let counter = 0;
+		const entries = materials.entries();
+		for (const entry of entries) {
+			if (entry[0].uuid === selection.items[0].material.uuid) {
+				initialIndex = counter;
+				break;
+			}
+			counter = counter + 1;
+		}
+	}
+}
+
+function update(event) {
+	selected.value = materialArray[initialIndex];
+	selection.items[0].material = event.material;
+	selection.material[0] = event.material;
+}
+
+onUpdated(() => {
+	setupIndex()
+	selected.value = materialArray[initialIndex]
+});
+
+onMounted(() => {
+	setupIndex()
+	selected.value = materialArray[initialIndex]
+});
 </script>
