@@ -2,7 +2,7 @@
 	<PaneWrapper>
 		<UButton @click="createMaterial" icon="i-heroicons-plus" size="xs" variant="solid" color="white"
 			label="New Material" />
-		<PaneMaterialsItem v-for="material, index in materials" :material="material" :index="index" />
+		<PaneMaterialsItem v-for="(material, index) in materials" :material="material" :index="index" />
 	</PaneWrapper>
 </template>
 
@@ -17,7 +17,6 @@ function createMaterial() {
 }
 
 onMounted(() => {
-	parseMaterials()
-})
-
+	parseMaterials();
+});
 </script>

@@ -6,6 +6,7 @@
 import { colladaLoader } from "assets/webgl/loader.js"
 import { src_scene } from "assets/webgl/scene.js";
 import { importFailMsg } from "assets/toast/messages.js";
+import { computeSceneBVH } from 'assets/webgl/raycaster'
 
 const toast = useToast()
 
@@ -20,6 +21,7 @@ function load(e) {
 		try {
 			const dae = colladaLoader.parse(content, '')
 			src_scene.add(dae.scene)
+			computeSceneBVH()
 			parseMaterials()
 		}
 		catch {

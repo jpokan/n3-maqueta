@@ -8,20 +8,17 @@
 	<PaneProperty label="Wireframe">
 		<UCheckbox v-model="selection.material[0].wireframe" />
 	</PaneProperty>
+	<PaneProperty label="DepthTest">
+		<UCheckbox v-model="selection.material[0].depthTest" />
+	</PaneProperty>
+	<PaneProperty label="DepthWrite">
+		<UCheckbox v-model="selection.material[0].depthWrite" />
+	</PaneProperty>
 	<PaneProperty label="Color">
-		<UInput type="color" :value="hexString" @input="updateColor(selection.material[0].color, $event)" />
+		<PanePropertiesColorInput :threeColor="selection.material[0].color" />
 	</PaneProperty>
 </template>
 
 <script setup>
 import { selection } from "assets/webgl/helpers"
-
-const hexString = computed(() => {
-	const string = selection.material[0].color.getHexString()
-	return `#${string}`
-})
-
-function updateColor(threeColor, event) {
-	threeColor.set(event.target.value)
-}
 </script>

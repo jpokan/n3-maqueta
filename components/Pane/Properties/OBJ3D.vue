@@ -34,6 +34,7 @@
 			<USelectMenu v-model="selected" size="2xs" @change="update($event)" :options="materialArray"
 				option-attribute="name" />
 			<UInput disabled variant="none" v-model="selection.items[0].material.type" />
+			<PanePropertiesColorInput :threeColor="selection.items[0].material.color" />
 		</div>
 	</PaneProperty>
 </template>
