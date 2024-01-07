@@ -52,11 +52,3 @@ export function initRaycaster() {
 	})
 }
 
-export function computeSceneBVH() {
-	src_scene.traverse((el) => {
-		try {
-			el.geometry.computeBoundsTree()
-		} catch (e) {
-		}
-	})
-}
