@@ -2,8 +2,8 @@
 	<div @click="select(material)" :class="{ 'bg-gray-200 dark:bg-gray-950': selected }"
 		class="flex flex-row items-center px-0.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
 		<PaneInput :value="material.name" @update:value="update(material, $event)" />
-		<UButton @click.stop="removeMaterial(material)" icon="i-heroicons-trash" variant="link" color="gray" size="xs"
-			:padded="true" />
+		<UButton @click.stop="removeMaterial(material)" icon="i-heroicons-x-circle-16-solid" variant="link" color="gray"
+			size="xs" :padded="true" />
 	</div>
 </template>
 

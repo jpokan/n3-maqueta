@@ -27,7 +27,7 @@
 		</div>
 	</PaneProperty>
 	<PaneProperty label="Visibility">
-		<UCheckbox v-model="selection.items[0].visible" />
+		<UCheckbox @change="updateMask($event)" v-model="selection.items[0].visible" />
 	</PaneProperty>
 	<PaneProperty v-if="selection.items[0].material" label="Material">
 		<div class="flex flex-col gap-0.5">
@@ -54,7 +54,17 @@ materials.forEach((el) => {
 	});
 });
 
+function updateMask(e) {
+	// Layers mask 2 is for hidden elements (no selection with raycaster)
+	if (e.target._modelValue) {
+		selection.items[0].layers.mask = 1
+	} else {
+		selection.items[0].layers.mask = 2
+	}
+}
+
 function setupIndex() {
+	// setup index for selected value
 	if (selection.items[0].material) {
 		let counter = 0;
 		const entries = materials.entries();

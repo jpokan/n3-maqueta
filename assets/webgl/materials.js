@@ -10,6 +10,7 @@ export function parseMaterials() {
 export function removeMaterialFromScene(material) {
 	src_scene.traverse((obj) => {
 		if (obj.material === material) {
+			// set to default material
 			obj.material = basicMaterial
 			material.dispose()
 		}

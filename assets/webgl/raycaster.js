@@ -6,7 +6,7 @@ import { selection } from './helpers';
 import { outlinePass } from './postprocessing';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 
-// Extension functions
+// Extension functions for bvh
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -26,6 +26,7 @@ function onPointerUp(event) {
 	pointer.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
 	raycaster.setFromCamera(pointer, camera)
+	// this firstHitOnly is from three-mesh-bvh
 	raycaster.firstHitOnly = true;
 	const intersects = raycaster.intersectObjects(src_scene.children);
 

@@ -17,6 +17,12 @@
 	<PaneProperty label="Color">
 		<PanePropertiesColorInput :threeColor="selection.material[0].color" />
 	</PaneProperty>
+	<PaneProperty label="Opacity">
+		<URange v-model="selection.material[0].opacity" size="2xs" :min="0" :max="1" :step="0.01" />
+	</PaneProperty>
+	<PaneProperty label="Transparent">
+		<UCheckbox v-model="selection.material[0].transparent" />
+	</PaneProperty>
 </template>
 
 <script setup>

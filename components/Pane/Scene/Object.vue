@@ -1,6 +1,6 @@
 <template>
 	<div @click="select(OBJ3D)" :class="{ 'bg-gray-200 dark:bg-gray-950': selected }"
-		class="flex flex-row items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
+		class="flex flex-row items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md my-0.5">
 		<UIcon v-if="OBJ3D.children.length > 0" :name="opened ? 'i-heroicons-minus' : 'i-heroicons-plus'"
 			class="cursor-pointer ml-2" @click.stop="open" />
 		<PaneInput :value="OBJ3D.name" @update:value="update(OBJ3D, $event)" />
