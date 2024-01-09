@@ -28,7 +28,6 @@ export const basicMaterial = new THREE.MeshBasicMaterial({
 export const lineBasicMaterial = new THREE.LineBasicMaterial({
 	name: 'Line Basic Material',
 	color: new THREE.Color("#ffa500"),
-	depthTest: false,
 });
 
 export const wireframeMaterial = new THREE.MeshBasicMaterial({

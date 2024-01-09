@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { src_scene } from './scene';
 import { camera } from './camera';
 import { canvas } from './canvas';
-import { selection } from './helpers';
+import { selected } from './helpers';
 import { outlinePass } from './postprocessing';
 import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
 
@@ -30,15 +30,15 @@ function onPointerUp(event) {
 	raycaster.firstHitOnly = true;
 	const intersects = raycaster.intersectObjects(src_scene.children);
 
-	// clear selection_scene
-	selection.items = []
-	selection.material = []
-	outlinePass.selectedObjects = selection.items
+	// clear selected items
+	selected.items = []
+	selected.materials = []
+	outlinePass.selectedObjects = selected.items
 
 	if (intersects.length > 0) {
-		selection.items.push(intersects[0].object)
-		outlinePass.selectedObjects = selection.items
-		selection.material.push(intersects[0].object.material)
+		selected.items.push(intersects[0].object)
+		outlinePass.selectedObjects = selected.items
+		selected.materials.push(intersects[0].object.material)
 	}
 }
 

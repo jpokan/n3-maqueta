@@ -25,7 +25,8 @@ export function fpsCompute() {
 	fps.value = times.length;
 }
 
-export const selection = reactive({
+export const selected = reactive({
 	items: [],
-	material: [],
+	materials: [],
+	slides: []
 });

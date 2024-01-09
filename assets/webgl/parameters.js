@@ -40,7 +40,7 @@ export const uniforms = {
 
 export const camParameters = {
 	near: 0.1,
-	far: 1000,
+	far: 1000000,
 	fov: 75,
 	target: { x: 0, y: 0, z: 0 },
 	position: {

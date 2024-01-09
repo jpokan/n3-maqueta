@@ -1,5 +1,5 @@
 <template>
-	<div @click="select(OBJ3D)" :class="{ 'bg-gray-200 dark:bg-gray-950': selected }"
+	<div @click="select(OBJ3D)" :class="{ 'bg-gray-200 dark:bg-gray-950': isSelected }"
 		class="flex flex-row items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md my-0.5">
 		<UIcon v-if="OBJ3D.children.length > 0" :name="opened ? 'i-heroicons-minus' : 'i-heroicons-plus'"
 			class="cursor-pointer ml-2" @click.stop="open" />
@@ -12,7 +12,7 @@
 
 <script setup>
 import { outlinePass } from "assets/webgl/postprocessing.js";
-import { selection } from "assets/webgl/helpers.js";
+import { selected } from "assets/webgl/helpers.js";
 
 const props = defineProps(["OBJ3D"]);
 const opened = ref(false);
@@ -21,18 +21,18 @@ function update(OBJ3D, event) {
 	OBJ3D.name = event
 }
 
-const selected = computed(() => {
-	if (selection.items.length > 0) {
-		return props.OBJ3D.uuid === selection.items[0].uuid ? true : false;
+const isSelected = computed(() => {
+	if (selected.items.length > 0) {
+		return props.OBJ3D.uuid === selected.items[0].uuid ? true : false;
 	}
 })
 
 function select(OBJ3D) {
-	selection.items = [];
-	outlinePass.selectedObjects = selection.items;
+	selected.items = [];
+	outlinePass.selectedObjects = selected.items;
 
-	selection.items.push(OBJ3D);
-	outlinePass.selectedObjects = selection.items;
+	selected.items.push(OBJ3D);
+	outlinePass.selectedObjects = selected.items;
 }
 
 function open() {

@@ -11,15 +11,15 @@
 </template>
 
 <script setup>
-import { selection } from "~/assets/webgl/helpers";
+import { selected } from "~/assets/webgl/helpers";
 const props = defineProps(['tabIndex'])
 
 const OBJ3DSelected = computed(() => {
-	return selection.items.length > 0 ? true : false;
+	return selected.items.length > 0 ? true : false;
 })
 
 const materialSelected = computed(() => {
-	return selection.material.length > 0 ? true : false;
+	return selected.materials.length > 0 ? true : false;
 })
 
 </script>

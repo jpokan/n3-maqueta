@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { lineBasicMaterial } from '../materials';
+import { edges_scene } from '../scene';
 
 export function createOutline(geometry) {
 	try {
@@ -10,7 +11,7 @@ export function createOutline(geometry) {
 			lineBasicMaterial
 		);
 		edgesInteriorMesh.renderOrder = 99;
-		return edgesInteriorMesh
+		edges_scene.add(edgesInteriorMesh)
 	} catch {
 
 	}

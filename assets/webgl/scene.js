@@ -23,3 +23,7 @@ omni_scene.add(helpers_group)
 export const selection_scene = new THREE.Scene()
 selection_scene.name = 'selection_scene'
 omni_scene.add(selection_scene)
+
+export const edges_scene = new THREE.Scene()
+edges_scene.name = 'edges_scene'
+omni_scene.add(edges_scene)
