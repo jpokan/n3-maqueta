@@ -21,9 +21,6 @@
 			<UIcon :name="item.icon" class="w-4 h-4 flex-shrink" :class="selected ? 'text-pink-400' : ''" />
 		</template>
 
-		<template #src_scene>
-			<PaneSceneExplorer />
-		</template>
 		<template #slides>
 			<PaneSlides />
 		</template>
@@ -43,11 +40,6 @@
 const emit = defineEmits(['tab-change']);
 
 const items = [
-	{
-		label: "Scene Explorer",
-		slot: "src_scene",
-		icon: "i-heroicons-rectangle-group-16-solid",
-	},
 	{
 		label: "Slides",
 		slot: "slides",

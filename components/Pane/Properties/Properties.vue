@@ -1,10 +1,10 @@
 <template>
 	<PaneWrapper>
 		<PaneLabel label="Properties" />
-		<PaneWrapper v-if="OBJ3DSelected && tabIndex === 0">
+		<PaneWrapper v-if="OBJ3DSelected">
 			<PanePropertiesOBJ3D />
 		</PaneWrapper>
-		<PaneWrapper v-if="materialSelected && tabIndex === 2">
+		<PaneWrapper v-if="materialSelected && tabIndex === 1">
 			<PanePropertiesMaterial />
 		</PaneWrapper>
 	</PaneWrapper>

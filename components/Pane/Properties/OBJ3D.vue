@@ -37,6 +37,11 @@
 			<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
 		</div>
 	</PaneProperty>
+	<PaneProperty label="Layer">
+		<div class="flex flex-col gap-0.5">
+			<UInput disabled variant="none" v-model="selected.items[0].layers.mask" label="Mask" />
+		</div>
+	</PaneProperty>
 </template>
 
 <script setup>

@@ -11,5 +11,6 @@ export const camera = new THREE.PerspectiveCamera(
 
 export function initCamera() {
 	camera.position.set(camParameters.position.x, camParameters.position.y, camParameters.position.z);
+	camera.layers.enable(1)
 }
 

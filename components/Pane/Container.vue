@@ -5,6 +5,8 @@
 			leave-to-class="opacity-0">
 			<div class="mt-2 p-1 w-80 cs-h dark:bg-gray-900 bg-white border-gray-200 border dark:border-gray-700
 				rounded-md shadow-lg flex justify-between flex-col gap-1 select-none">
+				<PaneLabel label="Scene Explorer" />
+				<PaneSceneExplorer />
 				<PaneLabel :label="label" />
 				<PaneTabs class="h-full overflow-y-auto pr-1" @tab-change="changeLabel" />
 				<PaneProperties :tabIndex="idx" />
