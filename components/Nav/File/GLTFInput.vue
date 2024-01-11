@@ -7,7 +7,7 @@ import { gltfLoader } from "assets/webgl/loader.js";
 import { src_scene } from "assets/webgl/scene.js";
 import { importFailMsg } from "assets/toast/messages.js";
 import { createOutline } from "~/assets/webgl/utils/outline";
-import { offsetMaterial } from "~/assets/webgl/materials";
+import { offsetMaterial, parseMaterials } from "~/assets/webgl/materials";
 
 const toast = useToast();
 
@@ -31,6 +31,7 @@ function load(e) {
 						offsetMaterial(el);
 					}
 				});
+				parseMaterials()
 			});
 		} catch {
 			toast.add(importFailMsg);

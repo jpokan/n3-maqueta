@@ -24,6 +24,9 @@
 		<template #slides>
 			<PaneSlides />
 		</template>
+		<template #object>
+			<PanePropertiesOBJ3D />
+		</template>
 		<template #materials>
 			<PaneMaterialsExplorer />
 		</template>
@@ -37,9 +40,15 @@
 </template>
 
 <script setup>
+
 const emit = defineEmits(['tab-change']);
 
 const items = [
+	{
+		label: "Object",
+		slot: "object",
+		icon: "i-heroicons-viewfinder-circle-16-solid",
+	},
 	{
 		label: "Slides",
 		slot: "slides",

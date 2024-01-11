@@ -1,63 +1,71 @@
 <template>
-	<PaneProperty label="Name">
-		<UInput size="2xs" color="white" variant="outline" v-model="selected.items[0].name" />
-	</PaneProperty>
-	<PaneProperty label="Type">
-		<UInput disabled variant="none" v-model="selected.items[0].type" />
-	</PaneProperty>
-	<PaneProperty label="Position">
-		<div class="flex gap-0.5">
-			<UInput type="number" step="0.1" v-model="selected.items[0].position.x" />
-			<UInput type="number" step="0.1" v-model="selected.items[0].position.y" />
-			<UInput type="number" step="0.1" v-model="selected.items[0].position.z" />
-		</div>
-	</PaneProperty>
-	<PaneProperty label="Rotation">
-		<div class="flex gap-0.5">
-			<UInput type="number" step="0.1" v-model="selected.items[0].rotation.x" />
-			<UInput type="number" step="0.1" v-model="selected.items[0].rotation.y" />
-			<UInput type="number" step="0.1" v-model="selected.items[0].rotation.z" />
-		</div>
-	</PaneProperty>
-	<PaneProperty label="Scale">
-		<div class="flex gap-0.5">
-			<UInput type="number" step="0.1" v-model="selected.items[0].scale.x" />
-			<UInput type="number" step="0.1" v-model="selected.items[0].scale.y" />
-			<UInput type="number" step="0.1" v-model="selected.items[0].scale.z" />
-		</div>
-	</PaneProperty>
-	<PaneProperty label="Visibility">
-		<UCheckbox @change="updateMask($event)" v-model="selected.items[0].visible" />
-	</PaneProperty>
-	<PaneProperty v-if="selected.items[0].material" label="Material">
-		<div class="flex flex-col gap-0.5">
-			<USelectMenu v-model="selectedMaterial" size="2xs" @change="update($event)" :options="materialArray"
-				option-attribute="name" />
-			<UInput disabled variant="none" v-model="selected.items[0].material.type" />
-			<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
-		</div>
-	</PaneProperty>
-	<PaneProperty label="Layer">
-		<div class="flex flex-col gap-0.5">
-			<UInput disabled variant="none" v-model="selected.items[0].layers.mask" label="Mask" />
-		</div>
-	</PaneProperty>
+	<PaneWrapper v-if="OBJ3DSelected">
+		<PaneProperty label="Name">
+			<UInput size="2xs" color="white" variant="outline" v-model="selected.items[0].name" />
+		</PaneProperty>
+		<PaneProperty label="Type">
+			<UInput disabled variant="none" v-model="selected.items[0].type" />
+		</PaneProperty>
+		<PaneProperty label="Position">
+			<div class="flex gap-0.5">
+				<UInput type="number" step="0.1" v-model="selected.items[0].position.x" />
+				<UInput type="number" step="0.1" v-model="selected.items[0].position.y" />
+				<UInput type="number" step="0.1" v-model="selected.items[0].position.z" />
+			</div>
+		</PaneProperty>
+		<PaneProperty label="Rotation">
+			<div class="flex gap-0.5">
+				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.x" />
+				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.y" />
+				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.z" />
+			</div>
+		</PaneProperty>
+		<PaneProperty label="Scale">
+			<div class="flex gap-0.5">
+				<UInput type="number" step="0.1" v-model="selected.items[0].scale.x" />
+				<UInput type="number" step="0.1" v-model="selected.items[0].scale.y" />
+				<UInput type="number" step="0.1" v-model="selected.items[0].scale.z" />
+			</div>
+		</PaneProperty>
+		<PaneProperty label="Visibility">
+			<div class="flex flex-row">
+				<UCheckbox @change="updateMask($event)" v-model="selected.items[0].visible" />
+
+			</div>
+		</PaneProperty>
+		<PaneProperty v-if="selected.items[0].material" label="Material">
+			<div class="flex flex-col gap-0.5">
+				<USelectMenu v-model="selectedMaterial" size="2xs" @change="update($event)" :options="materialArray"
+					option-attribute="name" />
+				<!-- <UInput disabled variant="none" v-model="selected.items[0].material.type" /> -->
+				<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
+			</div>
+		</PaneProperty>
+	</PaneWrapper>
 </template>
 
 <script setup>
-import { materials } from "assets/webgl/materials";
+import { materials, parseMaterials } from "assets/webgl/materials";
 import { selected } from "assets/webgl/helpers";
 
-const materialArray = [];
+let materialArray = [];
 const selectedMaterial = ref(materialArray[0]);
 let initialIndex = 0;
 
-materials.forEach((el) => {
-	materialArray.push({
-		name: el.name,
-		material: el,
+function updateMaterialArray() {
+	parseMaterials()
+	materialArray = []
+	materials.forEach((el) => {
+		materialArray.push({
+			name: el.name,
+			material: el,
+		});
 	});
-});
+}
+
+const OBJ3DSelected = computed(() => {
+	return selected.items.length > 0 ? true : false;
+})
 
 function updateMask(e) {
 	// Layers mask 2 is for hidden elements (no selection with raycaster)
@@ -70,7 +78,7 @@ function updateMask(e) {
 
 function setupIndex() {
 	// setup index for selected value
-	if (selected.items[0].material) {
+	if (selected.items[0] && Object.hasOwn(selected.items[0], 'material')) {
 		let counter = 0;
 		const entries = materials.entries();
 		for (const entry of entries) {
@@ -80,7 +88,7 @@ function setupIndex() {
 			}
 			counter = counter + 1;
 		}
-	}
+	};
 }
 
 function update(event) {
@@ -90,11 +98,13 @@ function update(event) {
 }
 
 onUpdated(() => {
+	updateMaterialArray()
 	setupIndex()
 	selectedMaterial.value = materialArray[initialIndex]
 });
 
 onMounted(() => {
+	updateMaterialArray()
 	setupIndex()
 	selectedMaterial.value = materialArray[initialIndex]
 });

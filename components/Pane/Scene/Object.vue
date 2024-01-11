@@ -1,6 +1,6 @@
 <template>
 	<div @click="select(OBJ3D)" :class="{ 'bg-gray-200 dark:bg-gray-950': isSelected }"
-		class="flex flex-row items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md my-0.5">
+		class="flex flex-row items-center hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
 		<UIcon v-show="OBJ3D.children.length > 0" :name="opened ? 'i-heroicons-minus' : 'i-heroicons-plus'"
 			class="cursor-pointer ml-2" @click.stop="open" />
 		<!-- <UIcon v-if="OBJ3D.isLineSegments" name="i-heroicons-cube-transparent" class="ml-2" /> -->
