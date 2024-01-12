@@ -2,7 +2,10 @@
 	<PaneWrapper>
 		<UAccordion :items="items" multiple>
 			<template #ambient-light>
-				<PaneWorldAmbientLight/>
+				<PaneWorldAmbientLight />
+			</template>
+			<template #camera>
+				<PaneWorldCamera />
 			</template>
 		</UAccordion>
 	</PaneWrapper>
@@ -13,6 +16,11 @@ const items = [
 	{
 		label: "Ambient Light",
 		slot: "ambient-light",
+		defaultOpen: true,
+	},
+	{
+		label: "Camera",
+		slot: "camera",
 		defaultOpen: true,
 	},
 ];

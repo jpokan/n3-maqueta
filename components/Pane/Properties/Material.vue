@@ -24,9 +24,6 @@
 		<PaneProperty label="Transparent">
 			<UCheckbox v-model="selected.materials[0].transparent" />
 		</PaneProperty>
-		<PaneProperty label="Polygon">
-			<UCheckbox v-model="selected.materials[0].polygonOffset" />
-		</PaneProperty>
 	</PaneWrapper>
 </template>
 

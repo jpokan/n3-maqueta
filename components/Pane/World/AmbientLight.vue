@@ -1,5 +1,5 @@
 <template>
-	<div class="flex gap-1 flex-col">
+	<div class="flex gap-0.5 flex-col mb-1">
 		<PaneItem>
 			<UCheckbox label="Enabled" v-model="ambientLight.visible" />
 		</PaneItem>

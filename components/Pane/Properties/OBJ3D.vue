@@ -6,21 +6,21 @@
 		<PaneProperty label="Type">
 			<UInput disabled variant="none" v-model="selected.items[0].type" />
 		</PaneProperty>
-		<PaneProperty label="Position">
+		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Position">
 			<div class="flex gap-0.5">
 				<UInput type="number" step="0.1" v-model="selected.items[0].position.x" />
 				<UInput type="number" step="0.1" v-model="selected.items[0].position.y" />
 				<UInput type="number" step="0.1" v-model="selected.items[0].position.z" />
 			</div>
 		</PaneProperty>
-		<PaneProperty label="Rotation">
+		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Rotation">
 			<div class="flex gap-0.5">
 				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.x" />
 				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.y" />
 				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.z" />
 			</div>
 		</PaneProperty>
-		<PaneProperty label="Scale">
+		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Scale">
 			<div class="flex gap-0.5">
 				<UInput type="number" step="0.1" v-model="selected.items[0].scale.x" />
 				<UInput type="number" step="0.1" v-model="selected.items[0].scale.y" />
@@ -30,14 +30,12 @@
 		<PaneProperty label="Visibility">
 			<div class="flex flex-row">
 				<UCheckbox @change="updateMask($event)" v-model="selected.items[0].visible" />
-
 			</div>
 		</PaneProperty>
 		<PaneProperty v-if="selected.items[0].material" label="Material">
 			<div class="flex flex-col gap-0.5">
 				<USelectMenu v-model="selectedMaterial" size="2xs" @change="update($event)" :options="materialArray"
 					option-attribute="name" />
-				<!-- <UInput disabled variant="none" v-model="selected.items[0].material.type" /> -->
 				<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
 			</div>
 		</PaneProperty>

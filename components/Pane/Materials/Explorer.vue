@@ -1,16 +1,7 @@
 <template>
 	<PaneWrapper>
-		<!-- <div class="flex flex-col justify-between gap-1"> -->
-		<!-- 	<div class="min-h-1/2 max-h-1/2 overflow-y-auto"> -->
-		<!-- 		<PanePropertiesMaterial /> -->
-		<!-- 	</div> -->
-		<!-- 	<div class="min-h-1/2 max-h-1/2 overflow-y-auto"> -->
 		<!-- 		<UButton @click="createMaterial" icon="i-heroicons-plus" size="xs" variant="solid" color="white" -->
 		<!-- 			label="New Material" /> -->
-		<!-- 		<PaneMaterialsItem v-for="(material, index) in materials" :material="material" :index="index" /> -->
-		<!-- 	</div> -->
-		<!-- </div> -->
-
 		<UAccordion :items="items" multiple>
 			<template #library>
 				<div class="overflow-y-auto h-28 pr-1 mb-1">

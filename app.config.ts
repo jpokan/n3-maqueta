@@ -3,6 +3,7 @@ export default defineAppConfig({
 		primary: 'pink',
 		gray: 'zinc',
 		button: {
+			base: 'disabled:cursor-auto disabled:bg-gray-100 disabled:dark:bg-gray-800',
 			default: {
 				size: 'xs',
 			},
@@ -10,7 +11,8 @@ export default defineAppConfig({
 				white: {
 					solid: 'dark:hover:bg-gray-900'
 				}
-			}
+			},
+			variant: 'solid'
 		},
 		accordion: {
 			item: {

@@ -38,7 +38,7 @@ export const uniforms = {
 	u_radius: { value: 1.0 },
 };
 
-export const camParameters = {
+export const camParameters = reactive({
 	near: 0.1,
 	far: 1000000,
 	fov: 75,
@@ -48,7 +48,7 @@ export const camParameters = {
 		y: 25,
 		z: 25,
 	},
-};
+});
 
 // Initializes hbao params
 export const hbao2Parameters = {
