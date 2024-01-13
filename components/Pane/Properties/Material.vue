@@ -33,6 +33,4 @@ import { selected } from "assets/webgl/helpers"
 const materialSelected = computed(() => {
 	return selected.materials.length > 0 ? true : false;
 })
-
-console.log(selected);
 </script>

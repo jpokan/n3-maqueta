@@ -41,9 +41,12 @@ export default defineAppConfig({
 			base: "disabled:cursor-auto",
 			color: {
 				white: {
-					outline: 'focus:ring-1 ring-0'
+					outline: 'focus:ring-1 ring-0 shadow-none'
 				}
 			}
+		},
+		selectMenu: {
+			label: 'w-20'
 		}
 	}
 })

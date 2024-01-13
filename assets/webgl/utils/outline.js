@@ -13,7 +13,7 @@ export function createOutline(geometry) {
 		lineBasicMaterial
 	);
 	edgesMesh.name = 'Edges'
-	edgesMesh.layers.mask = 2
+	edgesMesh.layers.set(1)
 	edgesMesh.renderOrder = -1;
 	return edgesMesh
 }
@@ -27,7 +27,7 @@ export function createFatOutline(geometry) {
 		lineMaterial
 	);
 	edgesMesh.name = 'Edges'
-	edgesMesh.layers.mask = 2
+	edgesMesh.layers.set(1)
 	edgesMesh.renderOrder = -1;
 	return edgesMesh
 }
@@ -41,7 +41,7 @@ export function createFatOutline2(geometry) {
 		lineMaterial
 	);
 	edgesMesh.name = 'Edges'
-	edgesMesh.layers.mask = 2
+	edgesMesh.layers.set(1)
 	edgesMesh.renderOrder = -1;
 	return edgesMesh
 }

@@ -14,6 +14,7 @@ export const parameters = {
 export const view = reactive({
 	fps: true,
 	axes: true,
+	edges: true
 });
 
 export const composerParameters = reactive({
@@ -39,6 +40,7 @@ export const uniforms = {
 };
 
 export const camParameters = reactive({
+	edgesLayer: 1, // Layer 1
 	near: 0.1,
 	far: 1000000,
 	fov: 75,

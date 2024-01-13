@@ -9,8 +9,9 @@
 </template>
 
 <script setup>
-import { view } from "assets/webgl/parameters.js"
+import { camParameters, view } from "assets/webgl/parameters.js"
 import { axesHelper } from "assets/webgl/helpers.js"
+import { camera } from "assets/webgl/camera.js"
 
 const items = [
 	[
@@ -29,7 +30,14 @@ const items = [
 				view.fps = !view.fps
 			},
 		},
+		{
+			label: "edges",
+			shortcuts: ["V", "E"],
+			click: () => {
+				view.edges = !view.edges
+				camera.layers.toggle(camParameters.edgesLayer) // Layer 1 for edges
+			},
+		},
 	],
-
 ];
 </script>

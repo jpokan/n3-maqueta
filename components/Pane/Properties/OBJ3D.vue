@@ -4,7 +4,7 @@
 			<UInput size="2xs" color="white" variant="outline" v-model="selected.items[0].name" />
 		</PaneProperty>
 		<PaneProperty label="Type">
-			<UInput disabled variant="none" v-model="selected.items[0].type" />
+			<UInput disabled v-model="selected.items[0].type" />
 		</PaneProperty>
 		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Position">
 			<div class="flex gap-0.5">
@@ -28,14 +28,18 @@
 			</div>
 		</PaneProperty>
 		<PaneProperty label="Visibility">
-			<div class="flex flex-row">
-				<UCheckbox @change="updateMask($event)" v-model="selected.items[0].visible" />
+			<div class="flex flex-row gap-16">
+				<UCheckbox @change="updateLayer($event)" v-model="selected.items[0].visible" />
+				<div class="flex gap-2 items-center w-full">
+					<p>Mask</p>
+					<UInput disabled type="number" v-model="selected.items[0].layers.mask" />
+				</div>
 			</div>
 		</PaneProperty>
 		<PaneProperty v-if="selected.items[0].material" label="Material">
 			<div class="flex flex-col gap-0.5">
-				<USelectMenu v-model="selectedMaterial" size="2xs" @change="update($event)" :options="materialArray"
-					option-attribute="name" />
+				<USelectMenu class="" v-model="selectedMaterial" size="2xs" @change="update($event)"
+					:options="materialArray" option-attribute="name" />
 				<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
 			</div>
 		</PaneProperty>
@@ -61,16 +65,25 @@ function updateMaterialArray() {
 	});
 }
 
+console.log(selected);
+
 const OBJ3DSelected = computed(() => {
 	return selected.items.length > 0 ? true : false;
 })
 
-function updateMask(e) {
-	// Layers mask 2 is for hidden elements (no selection with raycaster)
-	if (e.target._modelValue) {
-		selected.items[0].layers.mask = 1
+function updateLayer(event) {
+	if (event.target._modelValue) {
+		selected.items[0].traverse((el) => {
+			if (!el.isLineSegments) {
+				el.layers.enable(0)
+			}
+		})
 	} else {
-		selected.items[0].layers.mask = 2
+		selected.items[0].traverse((el) => {
+			if (!el.isLineSegments) {
+				el.layers.disable(0)
+			}
+		})
 	}
 }
 
@@ -90,7 +103,6 @@ function setupIndex() {
 }
 
 function update(event) {
-	selectedMaterial.value = materialArray[initialIndex];
 	selected.items[0].material = event.material;
 	selected.materials[0] = event.material;
 }
