@@ -65,8 +65,6 @@ function updateMaterialArray() {
 	});
 }
 
-console.log(selected);
-
 const OBJ3DSelected = computed(() => {
 	return selected.items.length > 0 ? true : false;
 })

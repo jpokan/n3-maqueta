@@ -12,6 +12,7 @@ THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
 export const raycaster = new THREE.Raycaster()
+raycaster.layers.set(0)
 
 export const pointer = new THREE.Vector2();
 
