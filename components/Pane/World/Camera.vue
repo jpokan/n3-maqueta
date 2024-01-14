@@ -9,6 +9,16 @@
 		<PaneProperty label="Fov">
 			<UInput type="number" step="0.1" v-model="camParameters.fov" @input="update('fov', $event)" />
 		</PaneProperty>
+		<PaneProperty label="Target">
+			<div class="flex gap-0.5">
+				<UInput type="number" step="0.1" v-model="camParameters.target.x"
+					@change="controls.target.x = Number($event.target.value)" />
+				<UInput type="number" step="0.1" v-model="camParameters.target.y"
+					@change="controls.target.y = Number($event.target.value)" />
+				<UInput type="number" step="0.1" v-model="camParameters.target.z"
+					@change="controls.target.z = Number($event.target.value)" />
+			</div>
+		</PaneProperty>
 		<PaneProperty label="Position">
 			<div class="flex gap-0.5">
 				<UInput type="number" step="0.1" v-model="camParameters.position.x"
@@ -25,6 +35,7 @@
 <script setup>
 import { camera } from "assets/webgl/camera";
 import { camParameters } from "assets/webgl/parameters";
+import { controls } from "assets/webgl/controls";
 
 function update(parameter, event) {
 	camera[parameter] = Number(event.target.value);

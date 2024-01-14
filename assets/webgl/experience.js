@@ -6,7 +6,7 @@ import { initCanvas } from "./canvas.js";
 import { camera, initCamera } from "./camera.js";
 import { initResizer } from "./resizer.js";
 import { renderer } from "./renderer.js";
-import { controls } from "./controls.js";
+import { controls, initControls } from "./controls.js";
 import { initPostprocessing, composer } from "./postprocessing.js";
 import { initHelpers, fpsCompute } from "./helpers.js";
 import { initLights } from "./lights.js";
@@ -25,6 +25,7 @@ export default class Experience {
 			initRaycaster();
 			// 2. Optionals
 			initPostprocessing();
+			initControls();
 			initHelpers();
 			initLights();
 			// Start
