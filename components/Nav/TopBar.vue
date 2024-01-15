@@ -13,14 +13,14 @@
 		<div class="flex gap-1 justify-end">
 			<NavFps />
 			<UButton color="white" variant="solid"
-				:trailing-icon="panelOpen ? 'i-heroicons-arrow-right-start-on-rectangle-16-solid' : 'i-heroicons-arrow-left-start-on-rectangle-16-solid'"
-				@click="panelOpen = !panelOpen" />
+				:trailing-icon="isOpen ? 'i-heroicons-arrow-right-start-on-rectangle-16-solid' : 'i-heroicons-arrow-left-start-on-rectangle-16-solid'"
+				@click="isOpen = !isOpen" />
 			<NavColorModeButton />
 		</div>
-		<PaneContainer :opened="panelOpen" />
+		<PaneContainer :opened="isOpen" />
 	</div>
 </template>
 
 <script setup>
-const panelOpen = ref(true)
+const isOpen = ref(true)
 </script>
