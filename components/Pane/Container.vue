@@ -29,7 +29,7 @@ function changeLabel(e, index) {
 }
 </script>
 
-<style>
+<style scoped>
 .cs-h {
 	height: calc(100dvh - 44px - 8px);
 }

@@ -9,7 +9,7 @@
 				</div>
 			</template>
 			<template #material-properties>
-				<PanePropertiesMaterial class="csf-h pr-1 overflow-y-auto" />
+				<PanePropertiesMaterial class="cs-h-material pr-1 overflow-y-auto" />
 			</template>
 		</UAccordion>
 	</PaneWrapper>
@@ -44,8 +44,8 @@ const items = [
 ];
 </script>
 
-<style>
-.csf-h {
+<style scoped>
+.cs-h-material {
 	height: calc(100dvh - 8px - 44px - 514px);
 }
 </style>
