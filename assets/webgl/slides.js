@@ -1,1 +1,1 @@
-export const slides = reactive([])
+export const slides = reactive(new Set())
