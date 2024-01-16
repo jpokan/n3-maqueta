@@ -2,10 +2,10 @@
 	<PaneWrapper>
 		<div class="flex gap-1">
 			<UButton icon="i-heroicons-plus" color="white" variant="solid" @click="addSlide" />
-			<UButton icon="i-heroicons-x-mark" color="white" variant="solid" @click="removeSlide" />
+			<UButton icon="i-heroicons-x-mark" color="white" variant="solid" @click="removeSlide" :disabled="!isSelected" />
 		</div>
 		<div class="overflow-y-auto cs-h-slide pr-1 mb-1 gap-0.5 flex flex-col w-full">
-			<PaneSlidesSlide v-for="slide in slides" :slide="slide" :class="{ 'border border-pink-500': isSelected }" />
+			<PaneSlidesSlide v-for="slide in slides" :slide="slide" />
 		</div>
 	</PaneWrapper>
 </template>
@@ -31,6 +31,7 @@ function removeSlide() {
 	if (isSelected) {
 		const slide = selected.slides[0]
 		slides.delete(slide)
+		selected.slides = []
 	}
 }
 
