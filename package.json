@@ -12,6 +12,8 @@
   "devDependencies": {
     "@nuxt/devtools": "^1.0.6",
     "@types/three": "^0.159.0",
+    "@vueuse/core": "^10.7.2",
+    "@vueuse/nuxt": "^10.7.2",
     "nuxt": "^3.9.0",
     "three": "^0.159.0",
     "three-mesh-bvh": "^0.6.8",
