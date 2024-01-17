@@ -73,3 +73,12 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+Structure:
+
+UNDO/REDO
+
+`src_scene` scene.js
+`slides` slides.js
+`materials` materials.js
+

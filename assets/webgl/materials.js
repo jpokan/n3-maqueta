@@ -33,6 +33,7 @@ export const wireframeMaterial = new THREE.MeshBasicMaterial({
 	depthTest: false
 })
 
+// USED BY UNDO/REDO
 export const materials = reactive(new Set([
 	basicMaterial,
 	lineMaterial,

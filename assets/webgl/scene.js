@@ -11,7 +11,7 @@ omni_scene.name = 'omni_scene'
  * [1] helpers_group - objects displayed but are not part of the src_scene
  * */
 
-export const src_scene = reactive(new THREE.Scene())
+export const src_scene = reactive(new THREE.Scene()) // USED BY UNDO/REDO
 src_scene.name = 'src_scene'
 omni_scene.add(toRaw(src_scene))
 
