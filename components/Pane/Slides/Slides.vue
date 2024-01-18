@@ -9,30 +9,30 @@
 </template>
 
 <script setup>
-import { slides } from "assets/webgl/slides"
-import { selected } from "~/assets/webgl/helpers";
+import { slides } from "assets/webgl/slides";
+import { selected } from "assets/webgl/helpers";
+import { AddSlideCommand, RemoveSlideCommand } from "assets/webgl/commands/SlideCommands"
 
-const counter = ref(0)
+const counter = ref(0);
 
 const isSelected = computed(() => {
 	return selected.slides.length > 0 ? true : false;
-})
+});
 
 function addSlide() {
 	slides.add({
-		id: `s-${counter.value}`
-	})
-	counter.value++
+		id: `s-${counter.value}`,
+	});
+	counter.value++;
 }
 
 function removeSlide() {
 	if (isSelected) {
-		const slide = selected.slides[0]
-		slides.delete(slide)
-		selected.slides = []
+		const slide = selected.slides[0];
+		slides.delete(slide);
+		selected.slides = [];
 	}
 }
-
 </script>
 
 <style scoped>

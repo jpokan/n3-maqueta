@@ -1,16 +1,16 @@
-import { commandStack } from "./commandStack"
+// Base Command structure
 
 export class Command {
 	constructor(name) {
 		this.name = name
+		this.isCommand = true
 	}
 
 	execute() {
-		commandStack.push()
+
 	}
 
 	undo() {
-		commandStack.pop()
+
 	}
 }
-
