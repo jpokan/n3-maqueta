@@ -3,12 +3,20 @@ import { src_scene } from './scene';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js'
 
 export const basicMaterial = new THREE.MeshBasicMaterial({
-	name: 'Default Material',
+	name: 'Basic Material',
 	color: new THREE.Color("#ffffff"),
 	polygonOffset: true,
 	polygonOffsetFactor: 1,
 	polygonOffsetUnits: 1,
 });
+
+export const standardMaterial = new THREE.MeshStandardMaterial({
+	name: 'Standard Material',
+	color: new THREE.Color("#ffffff"),
+	polygonOffset: true,
+	polygonOffsetFactor: 1,
+	polygonOffsetUnits: 1,
+})
 
 export const lineMaterial = new LineMaterial({
 	name: 'Line Material',
@@ -36,6 +44,7 @@ export const wireframeMaterial = new THREE.MeshBasicMaterial({
 // USED BY UNDO/REDO
 export const materials = reactive(new Set([
 	basicMaterial,
+	standardMaterial,
 	lineMaterial,
 	lineBasicMaterial,
 	wireframeMaterial
@@ -62,7 +71,7 @@ export function removeMaterialFromScene(material) {
 	src_scene.traverse((obj) => {
 		if (obj.material === material) {
 			// set to default material
-			obj.material = basicMaterial
+			obj.material = standardMaterial
 			material.dispose()
 		}
 	})

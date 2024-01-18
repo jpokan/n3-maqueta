@@ -5,5 +5,6 @@
 </template>
 
 <script setup>
-import { src_scene } from '~/assets/webgl/scene';
+import { src_scene } from "~/assets/webgl/scene";
+
 </script>

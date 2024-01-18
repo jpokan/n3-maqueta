@@ -1,5 +1,4 @@
 import "assets/css/webgl.css";
-import * as THREE from "three";
 import { omni_scene } from "./scene.js";
 import { composerParameters } from "./parameters.js";
 import { initCanvas } from "./canvas.js";
@@ -38,8 +37,6 @@ export default class Experience {
 /**
  * Animate
  */
-const clock = new THREE.Clock();
-
 const actions = () => {
 	// Update controls
 	controls.update();

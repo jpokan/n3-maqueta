@@ -3,7 +3,8 @@ export default defineNuxtConfig({
 	css: ['assets/css/satoshi.css'],
 	devtools: { enabled: false },
 	modules: [
-		'@nuxt/ui'
+		'@nuxt/ui',
+		'@vueuse/nuxt'
 	],
 	tailwindcss: {
 		viewer: false,

@@ -30,7 +30,6 @@ function update(material, event) {
 
 function removeMaterial(material) {
 	selected.materials = []
-	material.dispose();
 	removeMaterialFromScene(material)
 	materials.delete(material);
 }

@@ -2,9 +2,10 @@
 	<div class="absolute top-0 m-2">
 		<div class="flex gap-1">
 			<NavFileMenu />
-			<!-- <UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-left-16-solid" /> -->
-			<!-- <UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-right-16-solid" /> -->
+			<UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-left-16-solid" />
+			<UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-right-16-solid" />
 			<NavViewMenu />
+			<NavDebug />
 			<NavInfoMenu />
 		</div>
 	</div>
