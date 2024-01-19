@@ -1,8 +1,7 @@
 // Base Command structure
 
 export class Command {
-	constructor(name) {
-		this.name = name
+	constructor() {
 		this.isCommand = true
 	}
 

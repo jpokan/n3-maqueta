@@ -6,6 +6,8 @@
  *
  */
 
+import { Command } from "./command";
+
 export const CommandStack = [];
 
 /**
@@ -19,20 +21,23 @@ export const CommandStack = [];
  * 3. Runs Execute business logic
  *
  * CommandManager.undo()
- * 1. Set Command Stack pointer to -1
- * 2. Runs Undo business logic
+ * 1. Runs Undo business logic
+ * 2. Set Command Stack pointer to -1
  *
+ * CommandManager.redo()
+ * 1. Runs Undo business logic
+ * 2. Set Command Stack pointer to +1
  */
 
 class CommandManager {
 	constructor(name, size) {
 		this.name = name || "Command Manager";
 		this.maxSize = size || 30; // Limits the amount of Commands pushed to the Stack
-		this.pointer = 0; // Pointer indicates the position in the Command Stack timeline
+		this.pointer = -1; // Pointer indicates the position in the Command Stack timeline
 		this.isCommandManager = true;
 	}
 
-	push(command) {
+	commit(command) {
 		// Check if Command Stack has reached the max history limit
 		if (CommandStack.length === this.maxSize) {
 			// Removes first element
@@ -46,14 +51,24 @@ class CommandManager {
 		command.execute();
 	}
 
-	undo(command) {
-		if (CommandStack.length === 0) {
-			return;
-		}
-		// 1. Set pointer position
-		this.pointer = this.pointer - 1; // pointer - 1
-		// 2. Undo
+	undo() {
+		if (this.pointer === -1) return
+		// 1. Undo
+		const command = CommandStack[this.pointer]
 		command.undo();
+		// 2. Set pointer position
+		this.pointer = this.pointer - 1; // pointer - 1
+	}
+
+	redo() {
+		if (this.pointer === this.maxSize) return
+		if (this.pointer === CommandStack.length - 1) return
+		// 1. Redo
+		const command = CommandStack[this.pointer + 1]
+		command.execute();
+		// 2. Set pointer position
+		this.pointer = this.pointer + 1;
 	}
 }
 
+export const CM_Manager = new CommandManager()

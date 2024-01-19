@@ -2,8 +2,8 @@
 	<div class="absolute top-0 m-2">
 		<div class="flex gap-1">
 			<NavFileMenu />
-			<UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-left-16-solid" />
-			<UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-right-16-solid" />
+			<UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-left-16-solid" @click="undo" />
+			<UButton color="white" variant="solid" trailing-icon="i-heroicons-arrow-uturn-right-16-solid" @click="redo" />
 			<NavViewMenu />
 			<NavDebug />
 			<NavInfoMenu />
@@ -23,5 +23,15 @@
 </template>
 
 <script setup>
+import { CM_Manager } from '~/assets/webgl/commands/commandStack';
+
 const isOpen = ref(true)
+
+function undo() {
+	CM_Manager.undo()
+}
+
+function redo() {
+	CM_Manager.redo()
+}
 </script>
