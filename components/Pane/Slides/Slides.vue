@@ -2,10 +2,10 @@
 	<div class="flex gap-1 mb-1">
 		<UButton icon="i-heroicons-plus" color="white" variant="solid" @click="addSlide" />
 		<UButton icon="i-heroicons-x-mark" color="white" variant="solid" @click="removeSlide" :disabled="!isSelected" />
-		<UButton color="white" variant="solid" @click="removeSlide" :label="`${slides.size}`" disabled />
+		<UButton color="white" variant="solid" @click="removeSlide" :label="`${slides.state.size}`" disabled />
 	</div>
 	<div class="overflow-y-auto cs-h-slide pr-1 mb-1 gap-0.5 flex flex-col w-full">
-		<PaneSlidesSlide v-for="slide in slides" :slide="slide" />
+		<PaneSlidesSlide v-for="slide in slides.state" :slide="slide" />
 	</div>
 </template>
 

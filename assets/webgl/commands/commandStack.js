@@ -6,27 +6,21 @@
  *
  */
 
-import { Command } from "./command";
-
 export const CommandStack = [];
 
 /**
  *
  * Command Manager
- * Pushes Commands to the Command Stack in a organized way
+ * An interface to manipulate the Command Stack in a organized way
  *
- * CommandManager.push()
- * 1. Pushes Command to the Command Stack
- * 2. Set Command stack pointer to last
- * 3. Runs Execute business logic
+ * CommandManager.commit()
+ * Pushes Command to Command Stack
  *
  * CommandManager.undo()
- * 1. Runs Undo business logic
- * 2. Set Command Stack pointer to -1
+ * 0. Set pointer backward -1
  *
  * CommandManager.redo()
- * 1. Runs Undo business logic
- * 2. Set Command Stack pointer to +1
+ * 0. Set pointer forward +1
  */
 
 class CommandManager {
@@ -34,7 +28,6 @@ class CommandManager {
 		this.name = name || "Command Manager";
 		this.maxSize = size || 30; // Limits the amount of Commands pushed to the Stack
 		this.pointer = -1; // Pointer indicates the position in the Command Stack timeline
-		this.isCommandManager = true;
 	}
 
 	commit(command) {
@@ -45,8 +38,8 @@ class CommandManager {
 		}
 		// 1. Push
 		CommandStack.push(command);
-		// 2. Set pointer position
-		this.pointer = CommandStack.length - 1; // n-1
+		// 2. Set pointer position to last
+		this.pointer = this.pointer + 1; // n-1
 		// 3. Execute
 		command.execute();
 	}
@@ -65,7 +58,7 @@ class CommandManager {
 		if (this.pointer === CommandStack.length - 1) return
 		// 1. Redo
 		const command = CommandStack[this.pointer + 1]
-		command.execute();
+		command.redo();
 		// 2. Set pointer position
 		this.pointer = this.pointer + 1;
 	}

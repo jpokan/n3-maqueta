@@ -1,1 +1,3 @@
-export const slides = reactive(new Set()) // USED BY UNDO/REDO
+export const slides = reactive({
+	state: new Set()
+}) // USED BY UNDO/REDO
