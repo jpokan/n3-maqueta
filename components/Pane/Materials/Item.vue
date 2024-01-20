@@ -8,8 +8,9 @@
 </template>
 
 <script setup>
-import { materials, removeMaterialFromScene } from 'assets/webgl/materials'
 import { selected } from "assets/webgl/helpers";
+import { RemoveMaterialCommand } from "assets/webgl/commands/MaterialCommands"
+import { CM_Manager } from '~/assets/webgl/commands/commandStack';
 
 const props = defineProps(['material', 'index'])
 
@@ -30,7 +31,7 @@ function update(material, event) {
 
 function removeMaterial(material) {
 	selected.materials = []
-	removeMaterialFromScene(material)
-	materials.delete(material);
+	const command = new RemoveMaterialCommand(material)
+	CM_Manager.commit(command)
 }
 </script>
