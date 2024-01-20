@@ -19,7 +19,3 @@ export const helpers_group = new THREE.Group()
 helpers_group.name = 'helpers_group'
 omni_scene.add(helpers_group)
 
-export const reactiveScene = reactive({
-	name: 'scene',
-	state: toRaw(src_scene)
-})

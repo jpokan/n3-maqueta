@@ -2,7 +2,6 @@
 
 export class Command {
 	constructor() {
-		this.feature = null
 		this.state = [];
 	}
 
