@@ -77,6 +77,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 Structure:
 
 UNDO/REDO
+Reactive variables or features
 
 `src_scene` scene.js
 `slides` slides.js

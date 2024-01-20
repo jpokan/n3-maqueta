@@ -1,3 +1,5 @@
+import { reactive } from "vue";
+
 /**
  *
  * Command Stack:
@@ -27,7 +29,7 @@ class CommandManager {
 	constructor(name, size) {
 		this.name = name || "Command Manager";
 		this.maxSize = size || 30; // Limits the amount of Commands pushed to the Stack
-		this.pointer = -1; // Pointer indicates the position in the Command Stack timeline
+		this.pointer = reactive({ value: -1 }); // Pointer indicates the position in the Command Stack timeline
 	}
 
 	commit(command) {
@@ -36,31 +38,36 @@ class CommandManager {
 			// Removes first element
 			CommandStack.shift();
 		}
+		// Clear Commands after pointer
+		while (CommandStack.length - 1 > this.pointer.value) {
+			CommandStack.pop()
+		}
 		// 1. Push
 		CommandStack.push(command);
-		// 2. Set pointer position to last
-		this.pointer = this.pointer + 1; // n-1
-		// 3. Execute
+		// 2. Execute
 		command.execute();
+		// 3. Set pointer position to last
+		if (this.pointer.value + 1 === this.maxSize) return
+		this.pointer.value = this.pointer.value + 1; // n-1
 	}
 
 	undo() {
-		if (this.pointer === -1) return
+		if (this.pointer.value === -1) return
 		// 1. Undo
-		const command = CommandStack[this.pointer]
+		const command = CommandStack[this.pointer.value]
 		command.undo();
 		// 2. Set pointer position
-		this.pointer = this.pointer - 1; // pointer - 1
+		this.pointer.value = this.pointer.value - 1; // pointer - 1
 	}
 
 	redo() {
-		if (this.pointer === this.maxSize) return
-		if (this.pointer === CommandStack.length - 1) return
+		if (this.pointer.value === this.maxSize) return
+		if (this.pointer.value === CommandStack.length - 1) return
 		// 1. Redo
-		const command = CommandStack[this.pointer + 1]
+		const command = CommandStack[this.pointer.value + 1]
 		command.redo();
 		// 2. Set pointer position
-		this.pointer = this.pointer + 1;
+		this.pointer.value = this.pointer.value + 1;
 	}
 }
 
