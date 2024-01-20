@@ -15,12 +15,23 @@ export class AddSlideCommand extends Command {
 		this.saveState(reactiveSlides.state);
 		reactiveSlides.state.add(this.slide);
 		this.saveState(reactiveSlides.state);
-		console.log("add slide");
+		console.log("add slide command");
 		counter++;
+	}
+
+	saveState(reactiveState) {
+		const set = toRaw(reactiveState);
+		const stringState = JSON.stringify(Array.from(set));
+		this.state.push(stringState)
+	}
+
+	restoreState(stringState) {
+		const arr = JSON.parse(stringState);
+		this.feature.state = new Set(arr)
 	}
 }
 
-export class RemoveSlideCommand extends Command {
+export class RemoveSlideCommand extends AddSlideCommand {
 	constructor() {
 		super();
 		this.feature = reactiveSlides
@@ -31,7 +42,7 @@ export class RemoveSlideCommand extends Command {
 		this.saveState(reactiveSlides.state);
 		reactiveSlides.state.delete(this.slide);
 		this.saveState(reactiveSlides.state);
-		console.log("remove slide");
+		console.log("remove slide command");
 		selected.slides = [];
 	}
 }

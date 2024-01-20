@@ -1,5 +1,3 @@
-import { toRaw } from "vue";
-
 // Base Command structure
 
 export class Command {
@@ -8,9 +6,7 @@ export class Command {
 		this.state = [];
 	}
 
-	execute() {
-
-	}
+	execute() { }
 
 	undo() {
 		this.restoreState(this.state[0]);
@@ -22,14 +18,6 @@ export class Command {
 		console.log("redo");
 	}
 
-	saveState(reactiveState) {
-		const set = toRaw(reactiveState);
-		const stringState = JSON.stringify(Array.from(set));
-		this.state.push(stringState)
-	}
-
-	restoreState(stringState) {
-		const arr = JSON.parse(stringState);
-		this.feature.state = new Set(arr)
-	}
+	saveState() { }
+	restoreState() { }
 }
