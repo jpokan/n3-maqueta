@@ -6,10 +6,10 @@ import { createOutline } from "assets/webgl/utils/outline.js";
 import { offsetMaterial, parseMaterials } from "~/assets/webgl/materials";
 
 function load(e) {
-	try {
-		const file = e.target.files[0];
-		const reader = new FileReader();
+	const file = e.target.files[0];
+	const reader = new FileReader();
 
+	try {
 		reader.onload = (e) => {
 			const content = e.target.result;
 			gltfLoader.parse(content, "", (gltf) => {
@@ -26,10 +26,10 @@ function load(e) {
 				parseMaterials();
 			});
 		};
-		reader.readAsArrayBuffer(file);
 	} catch (err) {
 		return err
 	}
+	reader.readAsArrayBuffer(file);
 }
 
 
@@ -42,19 +42,19 @@ export class ImportCommand extends Command {
 
 	execute() {
 		this.saveState(reactiveScene.state);
-		load(this.e)
+		// load(this.e)
 		this.saveState(reactiveScene.state);
+		console.log(this.state[0] === this.state[1]);
 		console.log("import command");
 	}
 
-	saveState(reactiveState) {
-		const state = toRaw(reactiveState)
-		const stringState = JSON.stringify(state);
-		this.state.push(stringState)
+	saveState(scene) {
+		const clone = structuredClone(toRaw(scene))
+		console.log(clone);
+		this.state.push(clone)
 	}
 
-	restoreState(stringState) {
-		const state = JSON.parse(stringState);
+	restoreState(state) {
 		this.feature.state = state
 	}
 }
