@@ -67,12 +67,8 @@ export function offsetMaterial(mesh) {
 	}
 }
 
-export function removeMaterialFromScene(material) {
-	src_scene.traverse((obj) => {
-		if (obj.material === material) {
-			// set to default material
-			obj.material = standardMaterial
-			material.dispose()
-		}
-	})
+export function applyDefaultMaterial(obj) {
+	if (obj.material) {
+		obj.material = standardMaterial
+	}
 }

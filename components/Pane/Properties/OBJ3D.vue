@@ -49,6 +49,8 @@
 <script setup>
 import { materials, parseMaterials } from "assets/webgl/materials";
 import { selected } from "assets/webgl/helpers";
+import { UpdateMaterialCommand } from "assets/webgl/commands/MaterialCommands"
+import { CM_Manager } from "~/assets/webgl/commands/commandStack";
 
 let materialArray = [];
 const selectedMaterial = ref(materialArray[0]);
@@ -101,8 +103,8 @@ function setupIndex() {
 }
 
 function update(event) {
-	selected.items[0].material = event.material;
-	selected.materials[0] = event.material;
+	const command = new UpdateMaterialCommand(event.material)
+	CM_Manager.commit(command)
 }
 
 onUpdated(() => {
