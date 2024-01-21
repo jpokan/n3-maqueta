@@ -16,6 +16,9 @@ export const standardMaterial = new THREE.MeshStandardMaterial({
 	polygonOffset: true,
 	polygonOffsetFactor: 1,
 	polygonOffsetUnits: 1,
+	userData: {
+		isPrivate: true
+	}
 })
 
 export const lineMaterial = new LineMaterial({
@@ -29,6 +32,9 @@ export const lineMaterial = new LineMaterial({
 export const lineBasicMaterial = new THREE.LineBasicMaterial({
 	name: 'Line Basic Material',
 	color: new THREE.Color("#cccccc"),
+	userData: {
+		isPrivate: true
+	},
 });
 
 export const wireframeMaterial = new THREE.MeshBasicMaterial({
@@ -43,13 +49,12 @@ export const wireframeMaterial = new THREE.MeshBasicMaterial({
 
 // USED BY UNDO/REDO
 export const materials = reactive(new Set([
-	basicMaterial,
+	// Private materials
 	standardMaterial,
-	lineMaterial,
 	lineBasicMaterial,
-	wireframeMaterial
 ]))
 
+// From src_scene, add material to the materials set
 export function parseMaterials() {
 	src_scene.traverse((obj) => {
 		if (obj.material) {
@@ -58,13 +63,20 @@ export function parseMaterials() {
 	})
 }
 
-export function offsetMaterial(mesh) {
+// Offset single material
+export function offsetMaterial(material) {
 	// This function offsets the material to let outline edges be fully visible
-	if (mesh.material) {
-		mesh.material.polygonOffset = true
-		mesh.material.polygonOffsetFactor = 1
-		mesh.material.polygonOffsetUnits = 1
-	}
+	material.polygonOffset = true
+	material.polygonOffsetFactor = 1
+	material.polygonOffsetUnits = 1
+}
+
+// Offset materials from materials set
+export function offsetMaterials() {
+	materials.forEach((material) => {
+		if (material.userData.isPrivate) return;
+		offsetMaterial(material)
+	})
 }
 
 export function applyDefaultMaterial(obj) {

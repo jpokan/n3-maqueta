@@ -4,7 +4,7 @@
 		<!-- 			label="New Material" /> -->
 		<UAccordion :items="items" multiple>
 			<template #library>
-				<div class="overflow-y-auto h-28 pr-1 mb-1">
+				<div class="overflow-y-auto h-28 pr-1 mb-1 flex flex-col gap-0.5">
 					<PaneMaterialsItem v-for="(material, index) in materials" :material="material" :index="index" />
 				</div>
 			</template>

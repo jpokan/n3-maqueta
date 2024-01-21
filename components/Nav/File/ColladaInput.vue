@@ -3,11 +3,10 @@
 </template>
 
 <script setup>
-import { colladaLoader } from "assets/webgl/loader.js";
-import { src_scene } from "assets/webgl/scene.js";
+import { ImportCommand } from "assets/webgl/commands/SceneCommands";
+import { CM_Manager } from "assets/webgl/commands/commandStack";
+import { colladaLoader, post_import } from "assets/webgl/loader.js";
 import { importFailMsg } from "assets/toast/messages.js";
-import { createOutline } from "assets/webgl/utils/outline.js";
-import { offsetMaterial, parseMaterials } from "~/assets/webgl/materials";
 
 const toast = useToast();
 
@@ -17,26 +16,21 @@ function load(e) {
 	const file = e.target.files[0];
 	const reader = new FileReader();
 
-	reader.onload = (e) => {
-		const content = e.target.result;
-		try {
+	try {
+		reader.onload = (e) => {
+			const content = e.target.result;
 			const dae = colladaLoader.parse(content, "");
-			// Compute BVH
-			dae.scene.traverse((el) => {
-				if (el.isMesh && !el.isLineSegments2 && !el.isLine2) {
-					// Compute BVH
-					el.geometry.computeBoundsTree();
-					const edges = createOutline(el.geometry);
-					offsetMaterial(el);
-					el.add(edges);
-				}
-			});
-			src_scene.add(dae.scene);
-			parseMaterials();
-		} catch (e) {
-			toast.add(importFailMsg);
-		}
-	};
+			post_import(dae);
+			// Import Command
+			const command = new ImportCommand(dae.scene);
+			CM_Manager.commit(command);
+		};
+	} catch (err) {
+		toast.add(importFailMsg);
+	}
 	reader.readAsBinaryString(file);
+
+	// Reset input
+	e.target.value = "";
 }
 </script>
