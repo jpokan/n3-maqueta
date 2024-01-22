@@ -11,10 +11,11 @@ export class AssignPropertyCommand extends Command {
 		this.propertyValue = value
 		this.propertyName = property
 	}
+
 	execute() {
 		// Set Previous State
-		const value = selected.items[0].uuid
-		this.modifiedMesh = src_scene.getObjectByProperty('uuid', value)
+		const val = selected.items[0].uuid
+		this.modifiedMesh = src_scene.getObjectByProperty('uuid', val)
 		this.old_propertyValue = this.modifiedMesh[this.propertyName]
 
 		// Action
@@ -58,24 +59,25 @@ export class SetColorCommand extends Command {
 }
 
 export class UpdateInputCommand extends Command {
-	constructor(property, value) {
+	constructor(property, old_value, value) {
 		super()
-		this.old_value = null
+		this.old_value = old_value
 		this.value = value
 		this.property = property
 	}
 	execute() {
 		// Action
-		console.log("set color command");
+		const property = selected.items[0][this.property]
+		console.log(property);
+		// property.set(this.value)
+		console.log("update input command");
 	}
 
 	undo() {
-		this.threeColor.set(this.old_color)
 		console.log("undo");
 	}
 
 	redo() {
-		this.threeColor.set(this.color)
 		console.log("redo");
 	}
 }

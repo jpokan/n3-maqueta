@@ -7,6 +7,8 @@
 </template>
 
 <script setup>
+import { UpdateInputCommand } from "assets/webgl/commands/PropertyCommands";
+import { CM_Manager } from "~/assets/webgl/commands/commandStack";
 import { selected } from "assets/webgl/helpers";
 
 const props = defineProps(['propertyName'])
@@ -25,9 +27,10 @@ function saveState() {
 	}
 }
 
-function updateVector(property, old_value, event) {
-	// const command = new UpdateInputCommand()
-	// CM_Manager.commit(command)
+function updateVector(propertyName, event) {
+	console.log(event);
+	const command = new UpdateInputCommand(propertyName)
+	CM_Manager.commit(command)
 }
 
 </script>
