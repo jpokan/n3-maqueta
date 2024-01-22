@@ -37,10 +37,7 @@
 <script setup>
 import { materials, parseMaterials } from "assets/webgl/materials";
 import { selected } from "assets/webgl/helpers";
-import {
-	AssignPropertyCommand,
-	UpdateInputCommand,
-} from "assets/webgl/commands/PropertyCommands";
+import { AssignPropertyCommand } from "assets/webgl/commands/PropertyCommands";
 import { CM_Manager } from "~/assets/webgl/commands/commandStack";
 
 let materialArray = [];

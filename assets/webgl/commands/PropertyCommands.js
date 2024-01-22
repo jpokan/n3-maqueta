@@ -58,26 +58,27 @@ export class SetColorCommand extends Command {
 	}
 }
 
-export class UpdateInputCommand extends Command {
-	constructor(property, old_value, value) {
+export class SetComponentCommand extends Command {
+	constructor(property, index, old_value, value) {
 		super()
-		this.old_value = old_value
-		this.value = value
-		this.property = property
+		this.property = property // string
+		this.index = index // number
+		this.old_value = old_value // number
+		this.value = value // number
 	}
 	execute() {
 		// Action
-		const property = selected.items[0][this.property]
-		console.log(property);
-		// property.set(this.value)
+		this.property.setComponent(this.index, this.value)
 		console.log("update input command");
 	}
 
 	undo() {
+		this.property.setComponent(this.index, this.old_value)
 		console.log("undo");
 	}
 
 	redo() {
+		this.property.setComponent(this.index, this.value)
 		console.log("redo");
 	}
 }
