@@ -3,7 +3,7 @@ export default defineAppConfig({
 		primary: 'pink',
 		gray: 'zinc',
 		button: {
-			base: 'disabled:cursor-auto disabled:bg-gray-100 disabled:dark:bg-gray-800',
+			base: 'disabled:cursor-auto disabled:opacity-50',
 			default: {
 				size: 'xs',
 			},

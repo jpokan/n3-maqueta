@@ -3,7 +3,7 @@
 		class="flex flex-row items-center gap-1 pl-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md">
 		<PaneInput :value="material.name" @update:value="update(material, $event)" />
 		<UButton :disabled="isPrivate" @click.stop="removeMaterial(material)" icon="i-heroicons-x-circle-16-solid"
-			variant="solid" color="gray" size="xs" :padded="true" />
+			variant="ghost" color="gray" size="xs" :padded="true" />
 	</div>
 </template>
 

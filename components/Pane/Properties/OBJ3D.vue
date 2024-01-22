@@ -6,26 +6,14 @@
 		<PaneProperty label="Type">
 			<UInput disabled v-model="selected.items[0].type" />
 		</PaneProperty>
-		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Position">
-			<div class="flex gap-0.5">
-				<UInput type="number" step="0.1" v-model="selected.items[0].position.x" />
-				<UInput type="number" step="0.1" v-model="selected.items[0].position.y" />
-				<UInput type="number" step="0.1" v-model="selected.items[0].position.z" />
-			</div>
+		<PaneProperty v-if="!isLineSegments" label="Position">
+			<PanePropertiesVector3 propertyName="position" />
 		</PaneProperty>
-		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Rotation">
-			<div class="flex gap-0.5">
-				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.x" />
-				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.y" />
-				<UInput type="number" step="0.1" v-model="selected.items[0].rotation.z" />
-			</div>
+		<PaneProperty v-if="!isLineSegments" label="Rotation">
+			<PanePropertiesVector3 propertyName="rotation" />
 		</PaneProperty>
-		<PaneProperty v-if="!selected.items[0].isLineSegments" label="Scale">
-			<div class="flex gap-0.5">
-				<UInput type="number" step="0.1" v-model="selected.items[0].scale.x" />
-				<UInput type="number" step="0.1" v-model="selected.items[0].scale.y" />
-				<UInput type="number" step="0.1" v-model="selected.items[0].scale.z" />
-			</div>
+		<PaneProperty v-if="!isLineSegments" label="Scale">
+			<PanePropertiesVector3 propertyName="scale" />
 		</PaneProperty>
 		<PaneProperty label="Visibility">
 			<div class="flex flex-row gap-16">
@@ -38,7 +26,7 @@
 		</PaneProperty>
 		<PaneProperty v-if="selected.items[0].material" label="Material">
 			<div class="flex flex-col gap-0.5">
-				<USelectMenu class="" v-model="selectedMaterial" size="2xs" @change="update($event)"
+				<USelectMenu class="" v-model="selectedMaterial" size="2xs" @change="update('material', $event)"
 					:options="materialArray" option-attribute="name" />
 				<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
 			</div>
@@ -49,7 +37,10 @@
 <script setup>
 import { materials, parseMaterials } from "assets/webgl/materials";
 import { selected } from "assets/webgl/helpers";
-import { UpdateMaterialCommand } from "assets/webgl/commands/MaterialCommands"
+import {
+	AssignPropertyCommand,
+	UpdateInputCommand,
+} from "assets/webgl/commands/PropertyCommands";
 import { CM_Manager } from "~/assets/webgl/commands/commandStack";
 
 let materialArray = [];
@@ -57,8 +48,8 @@ const selectedMaterial = ref(materialArray[0]);
 let initialIndex = 0;
 
 function updateMaterialArray() {
-	parseMaterials()
-	materialArray = []
+	parseMaterials();
+	materialArray = [];
 	materials.forEach((el) => {
 		materialArray.push({
 			name: el.name,
@@ -67,29 +58,33 @@ function updateMaterialArray() {
 	});
 }
 
+const isLineSegments = computed(() => {
+	return selected.items[0].isLineSegments;
+});
+
 const OBJ3DSelected = computed(() => {
 	return selected.items.length > 0 ? true : false;
-})
+});
 
 function updateLayer(event) {
 	if (event.target._modelValue) {
 		selected.items[0].traverse((el) => {
 			if (!el.isLineSegments) {
-				el.layers.enable(0)
+				el.layers.enable(0);
 			}
-		})
+		});
 	} else {
 		selected.items[0].traverse((el) => {
 			if (!el.isLineSegments) {
-				el.layers.disable(0)
+				el.layers.disable(0);
 			}
-		})
+		});
 	}
 }
 
 function setupIndex() {
 	// setup index for selected value
-	if (selected.items[0] && Object.hasOwn(selected.items[0], 'material')) {
+	if (selected.items[0] && Object.hasOwn(selected.items[0], "material")) {
 		let counter = 0;
 		const entries = materials.entries();
 		for (const entry of entries) {
@@ -99,23 +94,23 @@ function setupIndex() {
 			}
 			counter = counter + 1;
 		}
-	};
+	}
 }
 
-function update(event) {
-	const command = new UpdateMaterialCommand(event.material)
-	CM_Manager.commit(command)
+function update(property, event) {
+	const command = new AssignPropertyCommand(property, event.material);
+	CM_Manager.commit(command);
 }
 
 onUpdated(() => {
-	updateMaterialArray()
-	setupIndex()
-	selectedMaterial.value = materialArray[initialIndex]
+	updateMaterialArray();
+	setupIndex();
+	selectedMaterial.value = materialArray[initialIndex];
 });
 
 onMounted(() => {
-	updateMaterialArray()
-	setupIndex()
-	selectedMaterial.value = materialArray[initialIndex]
+	updateMaterialArray();
+	setupIndex();
+	selectedMaterial.value = materialArray[initialIndex];
 });
 </script>
