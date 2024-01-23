@@ -10,7 +10,7 @@
 			<PanePropertiesVector3 propertyName="position" />
 		</PaneProperty>
 		<PaneProperty v-if="!isLineSegments" label="Rotation">
-			<PanePropertiesVector3 propertyName="rotation" />
+			<PanePropertiesEuler />
 		</PaneProperty>
 		<PaneProperty v-if="!isLineSegments" label="Scale">
 			<PanePropertiesVector3 propertyName="scale" />

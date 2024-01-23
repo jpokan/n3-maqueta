@@ -6,10 +6,10 @@ export class AssignPropertyCommand extends Command {
 	// Assigns property to mesh
 	constructor(property, value) {
 		super()
-		this.modifiedMesh = null
-		this.old_propertyValue = null
-		this.propertyValue = value
-		this.propertyName = property
+		this.modifiedMesh = null // THREE.Mesh
+		this.old_propertyValue = null // number
+		this.propertyValue = value // number
+		this.propertyName = property // string
 	}
 
 	execute() {
@@ -37,9 +37,9 @@ export class AssignPropertyCommand extends Command {
 export class SetColorCommand extends Command {
 	constructor(threeColor, old_color, color) {
 		super()
-		this.threeColor = threeColor
-		this.old_color = old_color
-		this.color = color
+		this.threeColor = threeColor // THREE.Color
+		this.old_color = old_color // string
+		this.color = color // string
 	}
 	execute() {
 		// Action
@@ -69,7 +69,7 @@ export class SetComponentCommand extends Command {
 	execute() {
 		// Action
 		this.property.setComponent(this.index, this.value)
-		console.log("update input command");
+		console.log("set component command");
 	}
 
 	undo() {
@@ -79,6 +79,31 @@ export class SetComponentCommand extends Command {
 
 	redo() {
 		this.property.setComponent(this.index, this.value)
+		console.log("redo");
+	}
+}
+
+export class SetEulerCommand extends Command {
+	constructor(name, old_value, value) {
+		super()
+		this.name = name // string
+		this.rotation = selected.items[0].rotation // THREE.Euler
+		this.old_value = old_value // number
+		this.value = value // number
+	}
+	execute() {
+		// Action
+		this.rotation[this.name] = this.value
+		console.log(`set ${this.name} euler command`);
+	}
+
+	undo() {
+		this.rotation[this.name] = this.old_value
+		console.log("undo");
+	}
+
+	redo() {
+		this.rotation[this.name] = this.value
 		console.log("redo");
 	}
 }
