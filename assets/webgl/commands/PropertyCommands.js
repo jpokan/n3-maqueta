@@ -6,10 +6,10 @@ export class AssignPropertyCommand extends Command {
 	// Assigns property to mesh
 	constructor(property, value) {
 		super()
+		this.propertyName = property // string
+		this.propertyValue = value // number
 		this.modifiedMesh = null // THREE.Mesh
 		this.old_propertyValue = null // number
-		this.propertyValue = value // number
-		this.propertyName = property // string
 	}
 
 	execute() {
@@ -59,51 +59,58 @@ export class SetColorCommand extends Command {
 }
 
 export class SetComponentCommand extends Command {
-	constructor(property, index, old_value, value) {
+	constructor(property, index, value) {
 		super()
-		this.property = property // string
+		this.propertyName = property // string
 		this.index = index // number
-		this.old_value = old_value // number
-		this.value = value // number
+		this.propertyValue = value // number
+		this.modifiedMesh = null // THREE.Mesh
+		this.old_propertyValue = null // number
 	}
 	execute() {
+		const val = selected.items[0].uuid
+		this.modifiedMesh = src_scene.getObjectByProperty('uuid', val)
+		this.old_propertyValue = this.modifiedMesh[this.propertyName].getComponent(this.index)
 		// Action
-		this.property.setComponent(this.index, this.value)
+		this.modifiedMesh[this.propertyName].setComponent(this.index, this.propertyValue)
 		console.log("set component command");
 	}
 
 	undo() {
-		this.property.setComponent(this.index, this.old_value)
+		this.modifiedMesh[this.propertyName].setComponent(this.index, this.old_propertyValue)
 		console.log("undo");
 	}
 
 	redo() {
-		this.property.setComponent(this.index, this.value)
+		this.modifiedMesh[this.propertyName].setComponent(this.index, this.propertyValue)
 		console.log("redo");
 	}
 }
 
 export class SetEulerCommand extends Command {
-	constructor(name, old_value, value) {
+	constructor(name, value) {
 		super()
-		this.name = name // string
-		this.rotation = selected.items[0].rotation // THREE.Euler
-		this.old_value = old_value // number
-		this.value = value // number
+		this.component = name // string
+		this.propertyValue = value // number
+		this.modifiedMesh = null // THREE.Mesh
+		this.old_propertyValue = null // number
 	}
 	execute() {
+		const val = selected.items[0].uuid
+		this.modifiedMesh = src_scene.getObjectByProperty('uuid', val)
+		this.old_propertyValue = this.modifiedMesh.rotation[this.component]
 		// Action
-		this.rotation[this.name] = this.value
+		this.modifiedMesh.rotation[this.component] = this.propertyValue
 		console.log(`set ${this.name} euler command`);
 	}
 
 	undo() {
-		this.rotation[this.name] = this.old_value
+		this.modifiedMesh.rotation[this.component] = this.old_propertyValue
 		console.log("undo");
 	}
 
 	redo() {
-		this.rotation[this.name] = this.value
+		this.modifiedMesh.rotation[this.component] = this.propertyValue
 		console.log("redo");
 	}
 }

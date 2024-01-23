@@ -22,13 +22,12 @@ const toDegrees = (value) => {
 	return value * (180 / Math.PI)
 }
 
-function setEuler(name, event) {
+function setEuler(component, event) {
 	if (!property.isEuler) return
 
-	const value = toRadians(event.target.value)
-	const old_value = property[name]
+	const value = toRadians(Number(event.target.value))
 
-	const command = new SetEulerCommand(name, old_value, value)
+	const command = new SetEulerCommand(component, value)
 	CM_Manager.commit(command)
 }
 
