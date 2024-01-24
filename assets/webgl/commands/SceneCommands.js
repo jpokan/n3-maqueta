@@ -1,5 +1,6 @@
 import { Command } from "./command";
 import { src_scene } from "assets/webgl/scene.js";
+import { selected } from "assets/webgl/helpers.js";
 
 export class ImportCommand extends Command {
 	constructor(model) {
@@ -15,6 +16,8 @@ export class ImportCommand extends Command {
 	undo() {
 		src_scene.remove(this.model)
 		console.log("undo");
+		selected.items = []
+		selected.materials = []
 	}
 
 	redo() {

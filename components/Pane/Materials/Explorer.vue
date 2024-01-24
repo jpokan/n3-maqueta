@@ -8,8 +8,8 @@
 					<PaneMaterialsItem v-for="(material, index) in materials" :material="material" :index="index" />
 				</div>
 			</template>
-			<template #material-properties>
-				<PanePropertiesMaterial class="cs-h-material pr-1 overflow-y-auto" />
+			<template #materials-properties>
+				<PaneMaterialsProperties class="cs-h-material pr-1 overflow-y-auto" />
 			</template>
 		</UAccordion>
 	</PaneWrapper>
@@ -38,7 +38,7 @@ const items = [
 	},
 	{
 		label: "Material Properties",
-		slot: "material-properties",
+		slot: "materials-properties",
 		defaultOpen: true,
 	},
 ];

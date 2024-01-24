@@ -16,44 +16,16 @@
 			<PanePropertiesVector3 propertyName="scale" />
 		</PaneProperty>
 		<PaneProperty label="Visibility">
-			<div class="flex flex-row gap-16">
-				<UCheckbox @change="updateLayer($event)" v-model="selected.items[0].visible" />
-				<div class="flex gap-2 items-center w-full">
-					<p>Mask</p>
-					<UInput disabled type="number" v-model="selected.items[0].layers.mask" />
-				</div>
-			</div>
+			<PanePropertiesVisibility />
 		</PaneProperty>
 		<PaneProperty v-if="selected.items[0].material" label="Material">
-			<div class="flex flex-col gap-0.5">
-				<USelectMenu class="" v-model="selectedMaterial" size="2xs" @change="update('material', $event)"
-					:options="materialArray" option-attribute="name" />
-				<PanePropertiesColorInput :threeColor="selected.items[0].material.color" />
-			</div>
+			<PanePropertiesMaterial />
 		</PaneProperty>
 	</PaneWrapper>
 </template>
 
 <script setup>
-import { materials, parseMaterials } from "assets/webgl/materials";
 import { selected } from "assets/webgl/helpers";
-import { AssignPropertyCommand } from "assets/webgl/commands/PropertyCommands";
-import { CM_Manager } from "~/assets/webgl/commands/commandStack";
-
-let materialArray = [];
-const selectedMaterial = ref(materialArray[0]);
-let initialIndex = 0;
-
-function updateMaterialArray() {
-	parseMaterials();
-	materialArray = [];
-	materials.forEach((el) => {
-		materialArray.push({
-			name: el.name,
-			material: el,
-		});
-	});
-}
 
 const isLineSegments = computed(() => {
 	return selected.items[0].isLineSegments;
@@ -63,51 +35,4 @@ const OBJ3DSelected = computed(() => {
 	return selected.items.length > 0 ? true : false;
 });
 
-function updateLayer(event) {
-	if (event.target._modelValue) {
-		selected.items[0].traverse((el) => {
-			if (!el.isLineSegments) {
-				el.layers.enable(0);
-			}
-		});
-	} else {
-		selected.items[0].traverse((el) => {
-			if (!el.isLineSegments) {
-				el.layers.disable(0);
-			}
-		});
-	}
-}
-
-function setupIndex() {
-	// setup index for selected value
-	if (selected.items[0] && Object.hasOwn(selected.items[0], "material")) {
-		let counter = 0;
-		const entries = materials.entries();
-		for (const entry of entries) {
-			if (entry[0].uuid === selected.items[0].material.uuid) {
-				initialIndex = counter;
-				break;
-			}
-			counter = counter + 1;
-		}
-	}
-}
-
-function update(property, event) {
-	const command = new AssignPropertyCommand(property, event.material);
-	CM_Manager.commit(command);
-}
-
-onUpdated(() => {
-	updateMaterialArray();
-	setupIndex();
-	selectedMaterial.value = materialArray[initialIndex];
-});
-
-onMounted(() => {
-	updateMaterialArray();
-	setupIndex();
-	selectedMaterial.value = materialArray[initialIndex];
-});
 </script>

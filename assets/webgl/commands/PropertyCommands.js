@@ -9,7 +9,7 @@ export class AssignPropertyCommand extends Command {
 		this.propertyName = property // string
 		this.propertyValue = value // number
 		this.modifiedMesh = null // THREE.Mesh
-		this.old_propertyValue = null // number
+		this.old_propertyValue = null // object
 	}
 
 	execute() {
