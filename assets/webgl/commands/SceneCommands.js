@@ -16,6 +16,7 @@ export class ImportCommand extends Command {
 	undo() {
 		src_scene.remove(this.model)
 		console.log("undo");
+		// Clear selected items and materials
 		selected.items = []
 		selected.materials = []
 	}
