@@ -6,6 +6,9 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'@vueuse/nuxt'
 	],
+	colorMode: {
+		preference: 'dark',
+	},
 	tailwindcss: {
 		viewer: false,
 	},
