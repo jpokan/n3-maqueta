@@ -114,3 +114,35 @@ export class SetEulerCommand extends Command {
 		console.log("redo");
 	}
 }
+
+export class BooleanInputCommand extends Command {
+	constructor(list, name, value) {
+		super();
+		this.list = list; // Array
+		this.name = name; // string
+		this.value = value; // boolean
+		this.old_value = null; // boolean (visibility, transparent, etc.)
+	}
+	execute() {
+		this.old_value = !this.value; // set to opposite
+		// Action
+		for (let i = 0; i < this.list.length; i++) {
+			this.list[i][this.name] = this.value;
+		}
+		console.log(`set ${this.name} boolean input command`);
+	}
+
+	undo() {
+		for (let i = 0; i < this.list.length; i++) {
+			this.list[i][this.name] = this.old_value;
+		}
+		console.log("undo");
+	}
+
+	redo() {
+		for (let i = 0; i < this.list.length; i++) {
+			this.list[i][this.name] = this.value;
+		}
+		console.log("redo");
+	}
+}
